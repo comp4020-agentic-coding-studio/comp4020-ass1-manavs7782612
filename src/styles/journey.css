@@ -44,7 +44,58 @@
   position: absolute;
   left: 0;
   bottom: 0;
-  background: #33475b;
+  display: block;
+  overflow: visible;
+}
+
+.building-body {
+  fill: #33475b;
+}
+
+/* Lit windows: a repeating pattern clipped to the same silhouette path, off by
+   default and switched on by `data-phase` on .journey (App.vue computes it
+   from sun.ts, the same call Sky.vue makes for the backdrop). A gentle pulse,
+   not a per-window flicker — believable without pretending to be more than a
+   CSS opacity animation. */
+.building-lights {
+  fill: url("#building-windows");
+  opacity: 0;
+}
+
+.journey[data-phase="civil"] .building-lights,
+.journey[data-phase="nautical"] .building-lights,
+.journey[data-phase="astronomical"] .building-lights,
+.journey[data-phase="night"] .building-lights {
+  opacity: 0.85;
+  animation: building-flicker 6s ease-in-out infinite alternate;
+}
+
+@keyframes building-flicker {
+  0%,
+  100% {
+    opacity: 0.85;
+  }
+
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* Ambient motion off, not degraded (harness rule 2): the lit windows stay on,
+   they just stop pulsing. */
+@media (prefers-reduced-motion: reduce) {
+  .building-lights {
+    animation: none !important;
+  }
+}
+
+/* Houses the shared #building-windows pattern only — never rendered, so it
+   takes no space and needs no visual treatment of its own. */
+.defs-only {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
 }
 
 .track {

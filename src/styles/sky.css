@@ -1,0 +1,144 @@
+/* The sky behind the journey. `src/components/Sky.vue` computes one thing —
+   which of `sun.ts`'s five twilight bands the looked-at city is currently in —
+   and puts it on the root element as `sky-day`, `sky-civil`, `sky-nautical`,
+   `sky-astronomical` or `sky-night`. Everything visual is here, so stylelint
+   sees the whole palette (CLAUDE.md, "Stack facts"): each phase class only
+   re-points the four colour custom properties and the starfield's opacity.
+
+   The bands are the standard ones: day is sun above the horizon, then civil
+   (0 to -6 degrees), nautical (-6 to -12), astronomical (-12 to -18) and
+   night below that — so the gradients walk blue, orange, rose-purple, indigo,
+   near-black in that order.
+
+   Stars are pure CSS: layered radial-gradient dots on a repeating tile. No
+   image, no SVG, no request (harness rule 4). Their twinkle is ambient motion,
+   so `prefers-reduced-motion: reduce` freezes it (harness rule 2). */
+
+.sky {
+  --sky-zenith: #1b3a72;
+  --sky-mid: #63aee2;
+  --sky-horizon: #cbe6f7;
+  --sky-glow: rgb(255 255 255 / 25%);
+  --sky-stars-opacity: 0;
+
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background-color: var(--sky-mid);
+  background-image:
+    radial-gradient(140% 55% at 50% 100%, var(--sky-glow) 0%, transparent 72%),
+    linear-gradient(to bottom, var(--sky-zenith) 0%, var(--sky-mid) 52%, var(--sky-horizon) 100%);
+}
+
+/* Sun up: clear blue, deepest overhead, hazing out towards the horizon. */
+
+.sky-day {
+  --sky-zenith: #1668bd;
+  --sky-mid: #67b2e6;
+  --sky-horizon: #d3e9f8;
+  --sky-glow: rgb(255 255 255 / 32%);
+  --sky-stars-opacity: 0;
+}
+
+/* Civil twilight: the sunset everyone pictures — blue overhead, fire low. */
+
+.sky-civil {
+  --sky-zenith: #1b3a72;
+  --sky-mid: #c9557d;
+  --sky-horizon: #ffab5e;
+  --sky-glow: rgb(255 168 88 / 60%);
+  --sky-stars-opacity: 0;
+}
+
+/* Nautical twilight: the orange has burned down to purple with a rose edge. */
+
+.sky-nautical {
+  --sky-zenith: #101a44;
+  --sky-mid: #46236b;
+  --sky-horizon: #9d4a70;
+  --sky-glow: rgb(186 96 122 / 42%);
+  --sky-stars-opacity: 0;
+}
+
+/* Astronomical twilight: indigo, only a bruise of light left at the horizon,
+   and the brighter stars already out. */
+
+.sky-astronomical {
+  --sky-zenith: #070b26;
+  --sky-mid: #141a4a;
+  --sky-horizon: #2b2b60;
+  --sky-glow: rgb(76 78 145 / 38%);
+  --sky-stars-opacity: 0.45;
+}
+
+/* Night: navy to near-black, with the horizon lifted just enough that the
+   buildings still have something to stand against. */
+
+.sky-night {
+  --sky-zenith: #02030c;
+  --sky-mid: #060a1c;
+  --sky-horizon: #0d1430;
+  --sky-glow: rgb(32 46 94 / 45%);
+  --sky-stars-opacity: 1;
+}
+
+/* Two starfields at different tile sizes so the repeat is hard to spot. Each
+   dot is a tiny radial gradient; the whole layer fades to nothing when
+   `--sky-stars-opacity` is 0, which is what the daylight phases set. The
+   keyframes multiply that same variable, so a day sky never twinkles itself
+   back into view. */
+
+.sky-stars {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1.4px 1.4px at 18% 24%, rgb(255 255 255 / 90%) 0%, transparent 100%),
+    radial-gradient(1px 1px at 62% 11%, rgb(255 255 255 / 72%) 0%, transparent 100%),
+    radial-gradient(1.2px 1.2px at 84% 47%, rgb(214 229 255 / 82%) 0%, transparent 100%),
+    radial-gradient(1px 1px at 37% 66%, rgb(255 255 255 / 62%) 0%, transparent 100%),
+    radial-gradient(1.6px 1.6px at 9% 82%, rgb(255 246 214 / 78%) 0%, transparent 100%),
+    radial-gradient(1.1px 1.1px at 71% 88%, rgb(255 255 255 / 66%) 0%, transparent 100%);
+  background-repeat: repeat;
+  background-size: 340px 260px;
+  opacity: var(--sky-stars-opacity);
+  animation: sky-twinkle 21s ease-in-out infinite alternate;
+}
+
+.sky-stars-far {
+  background-image:
+    radial-gradient(0.9px 0.9px at 8% 14%, rgb(255 255 255 / 60%) 0%, transparent 100%),
+    radial-gradient(0.8px 0.8px at 44% 31%, rgb(206 224 255 / 52%) 0%, transparent 100%),
+    radial-gradient(1px 1px at 77% 19%, rgb(255 255 255 / 58%) 0%, transparent 100%),
+    radial-gradient(0.8px 0.8px at 26% 74%, rgb(255 255 255 / 48%) 0%, transparent 100%),
+    radial-gradient(0.9px 0.9px at 91% 63%, rgb(255 236 206 / 55%) 0%, transparent 100%),
+    radial-gradient(0.8px 0.8px at 57% 91%, rgb(255 255 255 / 46%) 0%, transparent 100%);
+  background-size: 197px 151px;
+  animation-duration: 34s;
+  animation-delay: -13s;
+}
+
+@keyframes sky-twinkle {
+  0% {
+    opacity: calc(var(--sky-stars-opacity) * 0.55);
+  }
+
+  50% {
+    opacity: calc(var(--sky-stars-opacity) * 0.85);
+  }
+
+  100% {
+    opacity: var(--sky-stars-opacity);
+  }
+}
+
+/* Ambient motion off, not degraded: the starfield holds at its full static
+   brightness instead of pulsing (harness rule 2). */
+
+@media (prefers-reduced-motion: reduce) {
+  .sky-stars,
+  .sky-stars-far {
+    animation: none;
+    opacity: var(--sky-stars-opacity);
+  }
+}
