@@ -1,0 +1,6 @@
+/* All styling lives in .css files so stylelint can see it — never in SFC
+   <style> blocks. See CLAUDE.md, "Stack facts". */
+
+#journey {
+  min-height: 4rem;
+}
