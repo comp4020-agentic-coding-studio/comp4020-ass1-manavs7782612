@@ -24,6 +24,11 @@ export default defineConfig({
   base: "./",
   plugins: [vue()],
   build: {
+    // Vite's modulepreload polyfill calls fetch() at runtime for browsers
+    // without native support — this prototype is marked live in Chrome only,
+    // which has had native support since 2021, and harness rule 4 bans
+    // runtime network calls outright. Off, so the bundle has none to grep for.
+    modulePreload: { polyfill: false },
     rollupOptions: {
       input: htmlEntries(),
     },
