@@ -160,3 +160,146 @@ catching you out, a fact about the stack the agent keeps getting wrong --- write
 it down here. Growing this file is the work of harness engineering, and the gap
 between this boilerplate and your own version is part of what your prototype
 says about the developer you're becoming.
+
+---
+
+# Skyline (Assignment 1)
+
+An interactive walk along the world's tallest buildings. The visitor starts
+beside an ordinary single-storey Canberra house and travels **sideways** along
+one continuous ground line to twenty buildings, ending at the Burj Khalifa. The
+ground never leaves the screen; instead the whole world zooms out to keep the
+next building in frame, so the house shrinks from a home to a speck while you
+watch. Every building on screen at any instant shares one scale --- it is a
+comparison chart you walk through.
+
+## The five rules
+
+These are the rules I hold the agent to on this prototype. Each one is paired
+with a sensor, because a rule a check can't see is a rule that quietly stops
+being true. **If you find yourself about to break one, stop and say so instead
+of working around it.**
+
+### 1. Accuracy comes first
+
+The whole point of this prototype is that the numbers are real. A plausible
+number is worse than no number, because it looks the same as a true one.
+
+- Every figure in `src/data/**` carries a `source` (URL) and a `retrieved`
+  (ISO date). **No number enters the codebase without both.** Not one you
+  remember, not one you inferred from a neighbouring number, not one you
+  averaged.
+- Cross-check every height against a second source before freezing it. Where
+  sources disagree (Merdeka 118's completion year does), say so in the UI ---
+  do not silently pick one.
+- A modelled or typical figure is labelled as typical, in the data and in the
+  UI. The single-storey house and the three-storey townhouse are typical ACT
+  dwellings, not measured buildings, and the page has to say that.
+- Heights are **architectural top** (the CTBUH measure), stated once in the
+  copy. Never mix in height-to-tip or highest-occupied-floor for one building
+  and not the others.
+- If you cannot source it, do not ship it. Tell me it's unsourced.
+
+*Sensor:* `spec/assignment-1.test.ts` fails any entry missing `source` or
+`retrieved`, any `source` that isn't an https URL, and any height outside
+plausible bounds for its floor count.
+
+### 2. Usability comes first among the things that aren't accuracy
+
+The marker uses this for a minute, tabs through it, and resizes it mid-use. It
+has to survive being used wrongly.
+
+- Every action is reachable by keyboard, in a sensible tab order, with visible
+  focus. If you add a click handler, you have added a keyboard path too, or you
+  haven't finished.
+- Hit targets are at least 44 px. Nothing is conveyed by colour or motion
+  alone.
+- `prefers-reduced-motion: reduce` turns ambient motion off and makes travel an
+  instant jump. It is not a lesser experience; check it looks deliberate.
+- Never hijack scrolling. The journey rides a **native** scroll container, so
+  wheel, trackpad, touch inertia, the scrollbar, arrow keys, Home/End and
+  find-in-page all keep working without being reimplemented.
+
+*Sensor:* tests assert the skip link, an accessible name on every stop, and a
+single `aria-live` region; `axe-core` runs in `pnpm check` and zero serious
+violations is the bar.
+
+### 3. Both viewports count in full
+
+Marked at 1920×1080 and 390×844. "Works on my machine" means the 1920 one.
+
+- Never claim a layout works until it has been *looked at* at both sizes.
+  Screenshots, not reasoning about CSS.
+- `<body>` never scrolls horizontally --- the journey's own scroll container
+  does. Wide content scrolls inside its own box.
+- Design mobile-first for the HUD and the stop rail; the desktop layout is the
+  one with room to spare, not the other way round.
+
+*Sensor:* `scripts/shots.ts` captures both viewports; a test fails any fixed
+width that escapes 390 px.
+
+### 4. Static site, stretched as far as it goes
+
+There is no backend and there will not be one. That is a constraint on
+*requests*, not on liveness --- the site should still feel like it knows
+something about right now.
+
+- **No network at runtime. Ever.** No `fetch`, no `XMLHttpRequest`, no
+  `WebSocket`, no external fonts, no CDN, no remote images, no analytics.
+- Dynamism comes from computing things on the client instead of asking a server
+  for them. The skies are drawn from each city's *actual current local time*,
+  from latitude, longitude and IANA timezone --- real astronomy, zero requests.
+- Everything the page needs ships in the bundle. If a feature needs a request,
+  it's the wrong feature; find the client-side version of it.
+
+*Sensor:* a test greps the built `dist/` JS for `fetch(`, `XMLHttpRequest`,
+`WebSocket` and any external origin, and fails on a hit.
+
+### 5. Nothing left running
+
+Under a fling, a resize, a tab switch, or ten minutes idle, this page does
+exactly what it should and nothing else.
+
+- **Exactly one** `requestAnimationFrame` loop. It starts on interaction, stops
+  when the camera settles, and stops on `visibilitychange`. Idle CPU is ~0%.
+- **No `setInterval`.** Anywhere.
+- Every listener, observer and animation is registered through
+  `registerCleanup()` in `src/lifecycle.ts`. If you call `addEventListener`
+  directly, you have introduced a leak.
+- Scroll and resize listeners are `passive` and coalesced into the rAF loop ---
+  never do layout work in a scroll handler.
+- Guard against unintended actions: no double-firing on a fast tap, no
+  animation queue that outlives its element, no state written from two places.
+
+*Sensor:* a test fails on `setInterval` in `src/` and on any `addEventListener`
+outside the lifecycle helper.
+
+## Stack facts, so you stop re-deriving them
+
+- **Vue 3 SFCs on Vite with TypeScript**, matching the reported stack behind
+  neal.fun (the reference for this genre). `base: "./"` in `vite.config.ts`
+  already handles the GitHub Pages path --- don't add a `base` anywhere else.
+- `typecheck` is **`vue-tsc --noEmit`**, not `tsc`: `tsc` cannot read `.vue`.
+- **All CSS lives in `.css` files** under `src/styles/`, imported from
+  components --- never in SFC `<style>` blocks. `stylelint "**/*.css"` only
+  sees real CSS files, and a style block no sensor reads is a blind spot.
+- `spec/invariants.test.ts` parses the **built** `dist/index.html` with jsdom
+  and requires a `<nav>`, exactly one `<h1>`, and alt text on images. A
+  client-mounted Vue app ships an empty shell and fails all three. So
+  `index.html` holds real static markup --- header, nav, the single `<h1>`, the
+  intro, and a plain ordered list of all twenty stops with their heights and
+  sources --- and Vue mounts into a child element to enhance it. **That static
+  markup is a genuine no-JS reading path, not a way to make a test pass.** Keep
+  it in sync with the data; the tests check that it is.
+- Buildings are **hand-authored parametric SVG**, generated from a shape spec
+  and the real height in metres. No photographs and no external images: no
+  licensing question, no request, crisp at every zoom, animatable in CSS.
+
+## Working here
+
+- The rendered page is the truth. Look at it before you tell me something
+  works, at both viewports.
+- Commit at every green state, small and often.
+- When a check goes red, read the failure before changing anything, and fix the
+  cause rather than the assertion. Editing a test so it passes is only correct
+  when the contract genuinely changed --- say which one, and why.
