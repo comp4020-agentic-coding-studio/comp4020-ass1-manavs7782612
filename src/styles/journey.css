@@ -1,0 +1,68 @@
+/* The mechanic: a native scroll track (.track) drives a camera that repaints
+   a separate visual layer (.stage), rather than scrolling real content past
+   at 1:1 — see src/scene/useCamera.ts. All styling lives here, not in App.vue,
+   so stylelint can see it (CLAUDE.md, "Stack facts"). */
+
+.journey {
+  position: relative;
+  height: 65vh;
+  min-height: 20rem;
+  max-height: 40rem;
+}
+
+.stage {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Height is a fraction of .stage's own box (= .journey's box), not the
+   viewport — .journey can be far shorter than the viewport (see max-height
+   below), and useCamera.ts's GROUND_FRACTION must match this 20%. */
+.ground {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 20%;
+  background: #6b8f5a;
+}
+
+/* Zero-width anchor line: every building's screen x is relative to this, so
+   moving it (a CSS length, not a JS-computed value) is the entire "where does
+   the camera point" tuning knob, and it re-flows for free on resize. */
+.anchor {
+  position: absolute;
+  left: 38vw;
+  top: 0;
+  bottom: 20%;
+  width: 0;
+}
+
+.building {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background: #33475b;
+}
+
+.track {
+  position: absolute;
+  inset: 0;
+  overflow: auto hidden;
+  scroll-snap-type: x proximity;
+}
+
+.track-spacer {
+  position: relative;
+  height: 100%;
+}
+
+.snap-point {
+  position: absolute;
+  top: 0;
+  width: 1px;
+  height: 1px;
+  scroll-snap-align: start;
+}

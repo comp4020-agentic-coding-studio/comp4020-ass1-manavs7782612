@@ -1,24 +1,64 @@
 <script setup lang="ts">
-import { onBeforeUnmount, ref } from "vue";
-import { Lifecycle } from "./lifecycle";
+import { STOPS } from "./data/buildings";
+import { scrollLeftFromWorldX, type CameraFrame } from "./scene/camera";
+import { useCamera } from "./scene/useCamera";
 
-// Spike: proves the Vue + vue-tsc + oxlint toolchain end to end before the
-// real scene lands on top of it.
-const scope = new Lifecycle();
-const width = ref(window.innerWidth);
+const { camera, trackWidthPx, positions, attachTrack } = useCamera(STOPS);
 
-scope.on(
-  window,
-  "resize",
-  () => {
-    width.value = window.innerWidth;
-  },
-  { passive: true },
-);
+// A placeholder footprint until silhouette.ts gives each building its real
+// shape (build-order step "the look") — just enough width that a rectangle
+// reads as a building rather than a line.
+const buildings = STOPS.map((stop, i) => ({
+  stop,
+  worldX: positions[i],
+  widthM: Math.max(stop.heightM * 0.35, 3),
+}));
 
-onBeforeUnmount(() => scope.close());
+const snapPoints = positions.map((x, i) => ({
+  id: STOPS[i].id,
+  leftPx: scrollLeftFromWorldX(x, positions[0]),
+}));
+
+function buildingStyle(building: (typeof buildings)[number], frame: CameraFrame) {
+  const widthPx = building.widthM * frame.scale;
+  const heightPx = building.stop.heightM * frame.scale;
+  const screenX = (building.worldX - frame.x) * frame.scale - widthPx / 2;
+  return {
+    transform: `translateX(${screenX}px)`,
+    width: `${widthPx}px`,
+    height: `${heightPx}px`,
+  };
+}
 </script>
 
 <template>
-  <p data-testid="spike">Scene mounts here (viewport {{ width }}px).</p>
+  <div class="journey">
+    <div class="stage" aria-hidden="true">
+      <div class="ground"></div>
+      <div class="anchor">
+        <div
+          v-for="building in buildings"
+          :key="building.stop.id"
+          class="building"
+          :style="buildingStyle(building, camera)"
+        ></div>
+      </div>
+    </div>
+    <div
+      class="track"
+      tabindex="0"
+      role="region"
+      aria-label="Journey: scroll sideways to travel between buildings"
+      :ref="attachTrack"
+    >
+      <div class="track-spacer" :style="{ width: `${trackWidthPx}px` }">
+        <div
+          v-for="point in snapPoints"
+          :key="`${point.id}-snap`"
+          class="snap-point"
+          :style="{ left: `${point.leftPx}px` }"
+        ></div>
+      </div>
+    </div>
+  </div>
 </template>
