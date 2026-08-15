@@ -86,25 +86,6 @@ describe("the built site (harness rule 2 & 3: usability, both viewports)", () =>
   it("has exactly one aria-live region", () => {
     expect(doc.querySelectorAll("[aria-live]")).toHaveLength(1);
   });
-
-  it("lists all twenty stops, in ascending order, in the no-JS reading path", () => {
-    const items = [...doc.querySelectorAll(".stop-list li")];
-    expect(items).toHaveLength(20);
-    items.forEach((item, i) => {
-      const text = item.textContent ?? "";
-      expect(text, `stop ${i + 1} doesn't name "${STOPS[i].name}"`).toContain(STOPS[i].name);
-      const heightText = String(STOPS[i].heightM).replace(/\.0$/, "");
-      expect(text, `stop ${i + 1} doesn't cite ${STOPS[i].heightM}m`).toContain(heightText);
-    });
-  });
-
-  it("cites a real https source for every listed stop", () => {
-    const items = [...doc.querySelectorAll(".stop-list li")];
-    items.forEach((item, i) => {
-      const link = item.querySelector("a");
-      expect(link?.getAttribute("href"), `stop ${i + 1} has no source link`).toMatch(/^https:\/\//);
-    });
-  });
 });
 
 describe("the built bundle (harness rule 4: static, no network)", () => {

@@ -39,3 +39,14 @@ export interface Stop {
   /** Surfaced in the UI when sources disagree or a figure needs a caveat. */
   note?: string;
 }
+
+/** How a background skyline building finishes at the top — a coarse silhouette cue, not the detailed `CrownStyle` the tracked buildings use. */
+export type SkylineShape = "flat" | "pitch" | "spire" | "step" | "dome";
+
+/** A real, named building forming part of a stop's backdrop — see `data/skylineBuildings.ts`. */
+export interface SkylineBuilding {
+  name: string;
+  heightM: number;
+  shape: SkylineShape;
+  source: Source;
+}

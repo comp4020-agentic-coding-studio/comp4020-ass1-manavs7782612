@@ -31,7 +31,7 @@ export interface UseCameraResult {
  * renders from. The loop starts on the first scroll/resize and stops once
  * the camera has held still for a few frames, or the tab is hidden.
  */
-export function useCamera(stops: readonly WithHeight[], spacingFactor = 3): UseCameraResult {
+export function useCamera(stops: readonly WithHeight[], spacingFactor = 40): UseCameraResult {
   const scope = new Lifecycle();
   const positions = layoutStops(stops, spacingFactor);
   const trackWidthPx = totalWorldDistance(positions) * TRACK_PX_PER_METRE;
@@ -106,15 +106,32 @@ export function useCamera(stops: readonly WithHeight[], spacingFactor = 3): UseC
   });
 
   let detachScroll: (() => void) | null = null;
+  let detachWheel: (() => void) | null = null;
+
+  // The journey has no vertical axis to scroll natively, so a vertical wheel
+  // gesture is redirected into horizontal travel. Trackpad/touch horizontal
+  // panning, the scrollbar, ctrl+wheel pinch-zoom, and keyboard travel are
+  // all left untouched (CLAUDE.md, "Never hijack scrolling").
+  function handleWheel(event: WheelEvent): void {
+    if (event.ctrlKey) return;
+    if (Math.abs(event.deltaX) > Math.abs(event.deltaY)) return;
+    event.preventDefault();
+    // Setting scrollLeft dispatches a native scroll event, which the scroll
+    // listener below already turns into markDirty() — no need to call it here.
+    if (trackEl) trackEl.scrollLeft += event.deltaY;
+  }
 
   function attachTrack(el: Element | ComponentPublicInstance | null): void {
     detachScroll?.();
     detachScroll = null;
+    detachWheel?.();
+    detachWheel = null;
     const element = el instanceof Element ? el : null;
     trackEl = element;
     if (element) {
       recalibrate();
       detachScroll = scope.on(element, "scroll", markDirty, { passive: true });
+      detachWheel = scope.on(element, "wheel", handleWheel, { passive: false });
       markDirty();
     }
   }

@@ -2,5 +2,6 @@
    <style> blocks. See CLAUDE.md, "Stack facts". */
 
 #journey {
+  flex: 1 1 auto;
   min-height: 4rem;
 }

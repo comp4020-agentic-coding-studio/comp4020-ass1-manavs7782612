@@ -1,14 +1,19 @@
 /* Styling for src/components/Skyline.vue — the decorative parallax backdrop
-   behind the twenty tracked buildings. All styling lives here rather than in an
-   SFC <style> block so stylelint can see it (CLAUDE.md, "Stack facts").
+   of real, named buildings near whichever stop is currently focused. All
+   styling lives here rather than in an SFC <style> block so stylelint can
+   see it (CLAUDE.md, "Stack facts").
 
    The layout is: .skyline fills and clips its positioned ancestor (drop it in
    as the first child of .stage in journey.css, so it paints behind the ground
-   and the buildings); each .skyline-layer is a full-width strip standing on the
-   ground line; inside each is one <svg> far wider than the stage, which is what
-   gives the strip room to slide sideways without exposing an empty edge. That
-   svg's width and viewBox both come from SPAN_PX in Skyline.vue, so the two
-   can't drift apart — don't set a width here. */
+   and the buildings); inside it, two .skyline-instance boxes (the stop being
+   left, the stop being approached) stack exactly on top of each other and are
+   cross-faded via inline opacity — that's the crossfade between adjacent
+   stops' backdrops. Inside each instance, each .skyline-layer is a full-width
+   strip standing on the ground line; inside each is one <svg> far wider than
+   the stage, which is what gives the strip room to slide sideways without
+   exposing an empty edge. That svg's width and viewBox both come from
+   SPAN_PX in Skyline.vue, so the two can't drift apart — don't set a width
+   here. */
 
 .skyline {
   /* The ground line: matches .ground's height in journey.css and
@@ -23,6 +28,13 @@
   /* Decoration only — it must never eat a click or a drag meant for the
      journey's native scroll track (harness rule 2). */
   pointer-events: none;
+}
+
+/* Both instances occupy the exact same box so the crossfade is a pure
+   opacity cut-over, never a layout shift. */
+.skyline-instance {
+  position: absolute;
+  inset: 0;
 }
 
 .skyline-layer {

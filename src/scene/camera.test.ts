@@ -15,10 +15,10 @@ describe("layoutStops", () => {
     expect(layoutStops(STOPS, 3)[0]).toBe(0);
   });
 
-  it("spaces each pair by spacingFactor times the taller of the two", () => {
+  it("spaces each pair by spacingFactor times the square root of the taller of the two", () => {
     const positions = layoutStops(STOPS, 3);
     for (let i = 1; i < STOPS.length; i++) {
-      const expectedGap = 3 * Math.max(STOPS[i].heightM, STOPS[i - 1].heightM);
+      const expectedGap = 3 * Math.sqrt(Math.max(STOPS[i].heightM, STOPS[i - 1].heightM));
       expect(positions[i] - positions[i - 1]).toBeCloseTo(expectedGap);
     }
   });

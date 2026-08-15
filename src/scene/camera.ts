@@ -16,15 +16,20 @@ export interface WithHeight {
 
 /**
  * Where each stop sits along the ground, in metres. Consecutive stops are
- * spaced by `spacingFactor` times the taller of the pair, so a step from a
- * short building to a tall one (or back) gets more ground to cross than two
- * similarly-sized buildings in a row — the walk paces itself by how much the
- * view is about to change, not by a fixed distance.
+ * spaced by `spacingFactor` times the *square root* of the taller of the
+ * pair, so a step from a short building to a tall one (or back) still gets
+ * more ground to cross than two similarly-sized buildings in a row — but
+ * without a plain linear-in-height gap, which (given the dataset's dozen
+ * supertalls all within ~460-830m of each other) made every single
+ * supertall-to-supertall step cost thousands of scroll pixels for almost no
+ * visible change, while the three short Canberra stops were a couple of
+ * mouse-wheel notches apart. The square root keeps the same "bigger jump,
+ * more ground" ordering while narrowing that spread to a walkable range.
  */
 export function layoutStops(stops: readonly WithHeight[], spacingFactor: number): number[] {
   const positions: number[] = [0];
   for (let i = 1; i < stops.length; i++) {
-    const gap = spacingFactor * Math.max(stops[i].heightM, stops[i - 1].heightM);
+    const gap = spacingFactor * Math.sqrt(Math.max(stops[i].heightM, stops[i - 1].heightM));
     positions.push(positions[i - 1] + gap);
   }
   return positions;

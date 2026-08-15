@@ -190,14 +190,22 @@ number is worse than no number, because it looks the same as a true one.
   remember, not one you inferred from a neighbouring number, not one you
   averaged.
 - Cross-check every height against a second source before freezing it. Where
-  sources disagree (Merdeka 118's completion year does), say so in the UI ---
-  do not silently pick one.
-- A modelled or typical figure is labelled as typical, in the data and in the
-  UI. The single-storey house and the three-storey townhouse are typical ACT
-  dwellings, not measured buildings, and the page has to say that.
-- Heights are **architectural top** (the CTBUH measure), stated once in the
-  copy. Never mix in height-to-tip or highest-occupied-floor for one building
-  and not the others.
+  sources disagree (Merdeka 118's completion year does), the `note` field says
+  so --- do not silently pick one.
+- A modelled or typical figure is labelled as typical **in the data** --- the
+  single-storey house and the three-storey townhouse are typical ACT
+  dwellings, not measured buildings, and each carries a `note` field saying so.
+  The dataset tests below check the `note`/`kind` fields directly, but the
+  same caveat is also surfaced live: `App.vue`'s `.stop-info` card (the
+  on-screen "what building is this" caption, restored after user testing
+  found the journey unusably anonymous without it) shows a "typical, not
+  measured" badge and prints `note` verbatim whenever the focused stop has
+  one --- so the caveat is never dataset-only.
+- Heights are **architectural top** (the CTBUH measure) for every stop,
+  applied uniformly --- never mix in height-to-tip or highest-occupied-floor
+  for one building and not the others. `.stop-info` states the same height
+  figure for every stop with no per-stop wording changes, so any future
+  inconsistency here would show up on screen, not just in the data.
 - If you cannot source it, do not ship it. Tell me it's unsourced.
 
 *Sensor:* `spec/assignment-1.test.ts` fails any entry missing `source` or
@@ -218,7 +226,12 @@ has to survive being used wrongly.
   instant jump. It is not a lesser experience; check it looks deliberate.
 - Never hijack scrolling. The journey rides a **native** scroll container, so
   wheel, trackpad, touch inertia, the scrollbar, arrow keys, Home/End and
-  find-in-page all keep working without being reimplemented.
+  find-in-page all keep working without being reimplemented. One deliberate
+  exception: vertical wheel input with no larger horizontal component and no
+  `ctrlKey` is redirected into the journey's own horizontal travel, since the
+  journey has no vertical axis to scroll natively. Trackpad/touch horizontal
+  panning, the scrollbar, ctrl+wheel pinch-zoom, and keyboard travel are all
+  left untouched.
 
 *Sensor:* tests assert the skip link, an accessible name on every stop, and a
 single `aria-live` region; `axe-core` runs in `pnpm check` and zero serious
@@ -283,17 +296,18 @@ outside the lifecycle helper.
 - **All CSS lives in `.css` files** under `src/styles/`, imported from
   components --- never in SFC `<style>` blocks. `stylelint "**/*.css"` only
   sees real CSS files, and a style block no sensor reads is a blind spot.
-- `spec/invariants.test.ts` parses the **built** `dist/index.html` with jsdom
-  and requires a `<nav>`, exactly one `<h1>`, and alt text on images. A
-  client-mounted Vue app ships an empty shell and fails all three. So
-  `index.html` holds real static markup --- header, nav, the single `<h1>`, the
-  intro, and a plain ordered list of all twenty stops with their heights and
-  sources --- and Vue mounts into a child element to enhance it. **That static
-  markup is a genuine no-JS reading path, not a way to make a test pass.** Keep
-  it in sync with the data; the tests check that it is.
+- `spec/invariants.test.ts` parses the built `dist/index.html` with jsdom
+  and requires a `<nav>`, exactly one `<h1>`, and alt text on images. So
+  `index.html` keeps a real `<h1>` plus the skip-link/nav/announcer
+  markup --- the heading carries `class="visually-hidden"` (off-screen via
+  the existing `.visually-hidden` utility, not `display:none`), so a
+  sighted visitor sees only the journey while a screen reader or
+  view-source still finds it. There's no separate no-JS stop list: the
+  twenty-stop dataset (`src/data/buildings.ts`) is the accuracy record,
+  checked directly by the dataset tests in `spec/assignment-1.test.ts`,
+  not rendered as a fallback list.
 - Buildings are **hand-authored parametric SVG**, generated from a shape spec
-  and the real height in metres. No photographs and no external images: no
-  licensing question, no request, crisp at every zoom, animatable in CSS.
+  and the real height in metres: crisp at every zoom, animatable in CSS.
 
 ## Working here
 
