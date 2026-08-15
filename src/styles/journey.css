@@ -24,14 +24,24 @@
 
 /* Height is a fraction of .stage's own box (= .journey's box), not the
    viewport — .journey can be far shorter than the viewport (see max-height
-   below), and useCamera.ts's GROUND_FRACTION must match this 20%. */
+   below), and useCamera.ts's GROUND_FRACTION must match this 20%.
+
+   Tiled grass photo (src/assets/ground/grass.webp, credited in
+   src/assets/ground/CREDITS.md) rather than a flat fill. App.vue drives the
+   journey's colour progression through background-color, not the shorthand,
+   so it can multiply over this image instead of replacing it — the same
+   green-to-sand wash now tints real grass texture instead of a solid tint. */
 .ground {
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
   height: 20%;
-  background: #6b8f5a;
+  background-color: #6b8f5a;
+  background-image: url("../assets/ground/grass.webp");
+  background-repeat: repeat;
+  background-size: 220px 220px;
+  background-blend-mode: multiply;
 }
 
 /* Zero-width anchor line: every building's screen x is relative to this, so

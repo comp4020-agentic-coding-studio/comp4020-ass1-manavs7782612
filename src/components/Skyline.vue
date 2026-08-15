@@ -26,6 +26,7 @@ import "../styles/skyline.css";
 import { SKYLINE_BUILDINGS } from "../data/skylineBuildings";
 import type { SkylineBuilding, SkylineShape } from "../data/types";
 import { skylineBlendAt } from "../scene/skylineBlend";
+import { wrappedShiftPx } from "../scene/tileDrift";
 
 const props = defineProps<{
   /**
@@ -204,18 +205,6 @@ const uid = useId();
  * new loop/timer/listener).
  */
 const blend = computed(() => skylineBlendAt(props.worldX, props.positions, props.stopIds));
-
-/**
- * How far left to slide a layer, in px, wrapped into one tile width. The
- * pattern repeats every `tilePx`, so a shift of `n * tilePx` is
- * indistinguishable from no shift — taking the offset modulo the tile keeps
- * the number small and the drift seamless however far the journey runs.
- */
-function wrappedShiftPx(worldX: number, pxPerMetre: number, tilePx: number): number {
-  const drift = worldX * pxPerMetre;
-  if (!Number.isFinite(drift)) return 0;
-  return ((drift % tilePx) + tilePx) % tilePx;
-}
 
 function layerStyles(layers: DerivedLayer[]): { transform: string }[] {
   return layers.map((layer, i) => ({

@@ -131,7 +131,7 @@ const phase = computed(() => phaseForStopIndex(focusedIndex.value, STOPS.length)
     <div class="stage" aria-hidden="true">
       <Sky :phase="phase" />
       <Skyline :world-x="camera.x" :positions="positions" :stop-ids="stopIds" />
-      <div class="ground" :style="{ background: groundColorAt(progress) }"></div>
+      <div class="ground" :style="{ backgroundColor: groundColorAt(progress) }"></div>
       <div class="anchor">
         <svg
           v-for="building in buildings"

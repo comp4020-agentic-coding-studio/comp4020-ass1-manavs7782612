@@ -247,6 +247,8 @@ Marked at 1920×1080 and 390×844. "Works on my machine" means the 1920 one.
   does. Wide content scrolls inside its own box.
 - Design mobile-first for the HUD and the stop rail; the desktop layout is the
   one with room to spare, not the other way round.
+- The journey is the only thing on the page. No whitespace header or footer
+  above or below it --- the journey fills the viewport edge-to-edge.
 
 *Sensor:* `scripts/shots.ts` captures both viewports; a test fails any fixed
 width that escapes 390 px.
