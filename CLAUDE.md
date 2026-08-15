@@ -254,14 +254,19 @@ width that escapes 390 px.
 ### 4. Static site, stretched as far as it goes
 
 There is no backend and there will not be one. That is a constraint on
-*requests*, not on liveness --- the site should still feel like it knows
-something about right now.
+*requests*, not on computation --- everything the page shows still has to be
+worked out on the client, never fetched or pre-rendered per case.
 
 - **No network at runtime. Ever.** No `fetch`, no `XMLHttpRequest`, no
   `WebSocket`, no external fonts, no CDN, no remote images, no analytics.
-- Dynamism comes from computing things on the client instead of asking a server
-  for them. The skies are drawn from each city's *actual current local time*,
-  from latitude, longitude and IANA timezone --- real astronomy, zero requests.
+- The sky walks the five standard twilight bands (day, civil, nautical,
+  astronomical, night) in *journey order* --- day at the house, night at the
+  Burj Khalifa, four stops per band (`src/scene/journeyPhase.ts`) --- rather
+  than each city's live local time, so a visitor sees every phase in one
+  sitting instead of whatever the clock happens to show. `src/scene/sun.ts`'s
+  real solar-position calculator (latitude/longitude/time, no lookup table) is
+  unused by that default path but stays in the repo, tested and correct, in
+  case a later version wants live local time back.
 - Everything the page needs ships in the bundle. If a feature needs a request,
   it's the wrong feature; find the client-side version of it.
 
@@ -306,8 +311,12 @@ outside the lifecycle helper.
   twenty-stop dataset (`src/data/buildings.ts`) is the accuracy record,
   checked directly by the dataset tests in `spec/assignment-1.test.ts`,
   not rendered as a fallback list.
-- Buildings are **hand-authored parametric SVG**, generated from a shape spec
-  and the real height in metres: crisp at every zoom, animatable in CSS.
+- Buildings are **hand-illustrated SVG art**, one file per stop
+  (`src/assets/buildings/{stop.id}.svg`), drawn to that building's real
+  silhouette rather than a generic tapering shape --- crisp at every zoom.
+  Not a photograph: no licensing question, and still zero runtime network
+  requests, since every asset is bundled into the build via
+  `import.meta.glob` (`App.vue`) rather than fetched.
 
 ## Working here
 

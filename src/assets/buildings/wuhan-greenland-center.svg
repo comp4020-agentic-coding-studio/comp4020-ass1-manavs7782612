@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 76.096 475.6">
+  <defs>
+    <linearGradient id="bodyGrad" gradientUnits="userSpaceOnUse" x1="11.4" y1="0" x2="64.7" y2="0">
+      <stop offset="0%" stop-color="#FBF3E4"/>
+      <stop offset="38%" stop-color="#FBF3E4"/>
+      <stop offset="48%" stop-color="#C6CFD8"/>
+      <stop offset="58%" stop-color="#93A9BE"/>
+      <stop offset="100%" stop-color="#93A9BE"/>
+    </linearGradient>
+    <clipPath id="bldgClip">
+      <path d="
+        M 11.4,475.6
+        C 11.7,455 11.9,448 12.048,440
+        C 12.8,405 13.9,375 14.548,350
+        C 15.6,310 17,280 18.048,250
+        C 19.6,215 21,180 22.048,150
+        C 24,120 25.8,80 27.048,60
+        C 28.5,45 29.8,32 31.048,25
+        C 32.5,18 34.5,9.5 38.048,9.5
+        C 41.596,9.5 43.596,18 45.048,25
+        C 46.298,32 47.598,45 49.048,60
+        C 50.296,80 52.096,115 54.048,150
+        C 55.096,180 56.496,215 58.048,250
+        C 59.096,280 60.496,310 61.548,350
+        C 62.196,375 63.296,405 64.048,440
+        C 64.196,448 64.396,455 64.696,475.6
+        Z"/>
+    </clipPath>
+  </defs>
+
+  <!-- base body -->
+  <path fill="url(#bodyGrad)" d="
+    M 11.4,475.6
+    C 11.7,455 11.9,448 12.048,440
+    C 12.8,405 13.9,375 14.548,350
+    C 15.6,310 17,280 18.048,250
+    C 19.6,215 21,180 22.048,150
+    C 24,120 25.8,80 27.048,60
+    C 28.5,45 29.8,32 31.048,25
+    C 32.5,18 34.5,9.5 38.048,9.5
+    C 41.596,9.5 43.596,18 45.048,25
+    C 46.298,32 47.598,45 49.048,60
+    C 50.296,80 52.096,115 54.048,150
+    C 55.096,180 56.496,215 58.048,250
+    C 59.096,280 60.496,310 61.548,350
+    C 62.196,375 63.296,405 64.048,440
+    C 64.196,448 64.396,455 64.696,475.6
+    Z"/>
+
+  <!-- floor-grouping bands (colour variation only, clipped to silhouette) -->
+  <g clip-path="url(#bldgClip)">
+    <rect x="0" y="9.5"  width="76.096" height="35.5" fill="#FFFFFF" opacity="0.10"/>
+    <rect x="0" y="45"   width="76.096" height="35"   fill="#1A2733" opacity="0.05"/>
+    <rect x="0" y="80"   width="76.096" height="35"   fill="#FFFFFF" opacity="0.06"/>
+    <rect x="0" y="115"  width="76.096" height="35"   fill="#1A2733" opacity="0.08"/>
+    <rect x="0" y="150"  width="76.096" height="35"   fill="#FFFFFF" opacity="0.12"/>
+    <rect x="0" y="185"  width="76.096" height="35"   fill="#FFFFFF" opacity="0.03"/>
+    <rect x="0" y="220"  width="76.096" height="35"   fill="#1A2733" opacity="0.06"/>
+    <rect x="0" y="255"  width="76.096" height="35"   fill="#FFFFFF" opacity="0.08"/>
+    <rect x="0" y="290"  width="76.096" height="35"   fill="#1A2733" opacity="0.04"/>
+    <rect x="0" y="325"  width="76.096" height="35"   fill="#FFFFFF" opacity="0.05"/>
+    <rect x="0" y="360"  width="76.096" height="35"   fill="#1A2733" opacity="0.09"/>
+    <rect x="0" y="395"  width="76.096" height="35"   fill="#FFFFFF" opacity="0.07"/>
+    <rect x="0" y="430"  width="76.096" height="45.6" fill="#1A2733" opacity="0.05"/>
+  </g>
+
+  <!-- windows -->
+  <g clip-path="url(#bldgClip)" fill="#FFD98A">
+    <rect x="16" y="460" width="1.4" height="2" rx="0.3" opacity="0.9"/>
+    <rect x="20" y="445" width="1.2" height="1.8" rx="0.3" opacity="0.7"/>
+    <rect x="25" y="455" width="1.5" height="2.2" rx="0.3" opacity="0.85"/>
+    <rect x="30" y="438" width="1.3" height="1.9" rx="0.3" opacity="0.6"/>
+    <rect x="35" y="462" width="1.6" height="2.3" rx="0.3" opacity="0.95"/>
+    <rect x="40" y="448" width="1.2" height="1.8" rx="0.3" opacity="0.75"/>
+    <rect x="45" y="458" width="1.4" height="2" rx="0.3" opacity="0.8"/>
+    <rect x="50" y="440" width="1.3" height="1.9" rx="0.3" opacity="0.65"/>
+    <rect x="55" y="452" width="1.5" height="2.1" rx="0.3" opacity="0.9"/>
+    <rect x="60" y="435" width="1.2" height="1.7" rx="0.3" opacity="0.55"/>
+    <rect x="18" y="420" width="1.3" height="1.9" rx="0.3" opacity="0.7"/>
+    <rect x="24" y="410" width="1.4" height="2" rx="0.3" opacity="0.6"/>
+    <rect x="33" y="425" width="1.5" height="2.2" rx="0.3" opacity="0.85"/>
+    <rect x="42" y="415" width="1.3" height="1.9" rx="0.3" opacity="0.7"/>
+    <rect x="48" y="405" width="1.2" height="1.8" rx="0.3" opacity="0.6"/>
+    <rect x="56" y="418" width="1.4" height="2" rx="0.3" opacity="0.75"/>
+    <rect x="21" y="390" width="1.3" height="1.9" rx="0.3" opacity="0.65"/>
+    <rect x="29" y="398" width="1.5" height="2.1" rx="0.3" opacity="0.8"/>
+    <rect x="38" y="385" width="1.2" height="1.8" rx="0.3" opacity="0.55"/>
+    <rect x="52" y="395" width="1.4" height="2" rx="0.3" opacity="0.7"/>
+
+    <rect x="20" y="360" width="1.2" height="1.8" rx="0.25" opacity="0.6"/>
+    <rect x="28" y="345" width="1.3" height="1.9" rx="0.25" opacity="0.7"/>
+    <rect x="35" y="370" width="1.4" height="2" rx="0.25" opacity="0.85"/>
+    <rect x="43" y="350" width="1.2" height="1.8" rx="0.25" opacity="0.6"/>
+    <rect x="50" y="365" width="1.3" height="1.9" rx="0.25" opacity="0.75"/>
+    <rect x="23" y="320" width="1.2" height="1.7" rx="0.25" opacity="0.55"/>
+    <rect x="31" y="305" width="1.3" height="1.9" rx="0.25" opacity="0.65"/>
+    <rect x="40" y="330" width="1.4" height="2" rx="0.25" opacity="0.8"/>
+    <rect x="47" y="310" width="1.2" height="1.7" rx="0.25" opacity="0.6"/>
+    <rect x="25" y="280" width="1.1" height="1.6" rx="0.25" opacity="0.5"/>
+    <rect x="33" y="265" width="1.2" height="1.8" rx="0.25" opacity="0.65"/>
+    <rect x="41" y="290" width="1.3" height="1.9" rx="0.25" opacity="0.7"/>
+    <rect x="46" y="270" width="1.1" height="1.6" rx="0.25" opacity="0.55"/>
+    <rect x="37" y="255" width="1.2" height="1.7" rx="0.25" opacity="0.6"/>
+    <rect x="29" y="260" width="1.1" height="1.6" rx="0.25" opacity="0.5"/>
+
+    <rect x="26" y="230" width="1" height="1.5" rx="0.2" opacity="0.5"/>
+    <rect x="32" y="210" width="1.1" height="1.6" rx="0.2" opacity="0.6"/>
+    <rect x="38" y="240" width="1" height="1.5" rx="0.2" opacity="0.55"/>
+    <rect x="43" y="220" width="1.1" height="1.6" rx="0.2" opacity="0.65"/>
+    <rect x="28" y="190" width="0.9" height="1.4" rx="0.2" opacity="0.5"/>
+    <rect x="35" y="175" width="1" height="1.5" rx="0.2" opacity="0.6"/>
+    <rect x="41" y="195" width="0.9" height="1.4" rx="0.2" opacity="0.55"/>
+    <rect x="30" y="165" width="0.9" height="1.3" rx="0.2" opacity="0.45"/>
+    <rect x="37" y="155" width="0.9" height="1.3" rx="0.2" opacity="0.5"/>
+    <rect x="24" y="205" width="0.9" height="1.4" rx="0.2" opacity="0.5"/>
+    <rect x="45" y="180" width="0.9" height="1.4" rx="0.2" opacity="0.55"/>
+    <rect x="33" y="235" width="1" height="1.5" rx="0.2" opacity="0.6"/>
+
+    <rect x="30" y="130" width="0.8" height="1.2" rx="0.15" opacity="0.45"/>
+    <rect x="36" y="110" width="0.8" height="1.2" rx="0.15" opacity="0.5"/>
+    <rect x="41" y="95"  width="0.7" height="1.1" rx="0.15" opacity="0.4"/>
+    <rect x="33" y="80"  width="0.7" height="1.1" rx="0.15" opacity="0.45"/>
+    <rect x="38" y="65"  width="0.6" height="1"   rx="0.15" opacity="0.5"/>
+    <rect x="35" y="45"  width="0.6" height="0.9" rx="0.15" opacity="0.4"/>
+    <rect x="37" y="30"  width="0.5" height="0.8" rx="0.1"  opacity="0.45"/>
+    <rect x="29" y="100" width="0.7" height="1.1" rx="0.15" opacity="0.4"/>
+    <rect x="43" y="120" width="0.7" height="1.1" rx="0.15" opacity="0.45"/>
+    <rect x="31" y="140" width="0.8" height="1.2" rx="0.15" opacity="0.5"/>
+  </g>
+
+  <!-- rim light along left edge -->
+  <path fill="#FFE2B0" d="
+    M 11.4,475.6
+    C 11.7,455 11.9,448 12.048,440
+    C 12.8,405 13.9,375 14.548,350
+    C 15.6,310 17,280 18.048,250
+    C 19.6,215 21,180 22.048,150
+    C 24,120 25.8,80 27.048,60
+    C 28.5,45 29.8,32 31.048,25
+    C 32.5,18 34.5,9.5 38.048,9.5
+    L 38.048,9.5
+    C 35.3,9.5 33.3,18 31.848,25
+    C 30.6,32 29.3,45 27.848,60
+    C 26.6,80 24.8,120 22.848,150
+    C 21.8,180 20.4,215 18.848,250
+    C 17.8,280 16.4,310 15.348,350
+    C 14.7,375 13.6,405 12.848,440
+    C 12.7,448 12.5,455 12.2,475.6
+    Z"/>
+</svg>

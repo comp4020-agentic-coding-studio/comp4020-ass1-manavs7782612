@@ -1,0 +1,154 @@
+<svg viewBox="0 0 101.12 632" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="faceGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FBF3E4"/>
+      <stop offset="38%" stop-color="#FBF3E4"/>
+      <stop offset="50%" stop-color="#C6CFD8"/>
+      <stop offset="62%" stop-color="#93A9BE"/>
+      <stop offset="100%" stop-color="#93A9BE"/>
+    </linearGradient>
+    <clipPath id="towerClip">
+      <path d="M 6,632
+               C 7,540 4,480 8,440
+               C 10,400 2,370 4,340
+               C 5,300 8,260 10,240
+               C 14,200 18,170 20,140
+               C 24,110 30,80 34,60
+               C 37,40 40,20 44,8
+               C 47,4 51,2 51,2
+               C 51,2 55,4 58,8
+               C 62,10 66,20 70,35
+               C 74,50 68,60 72,70
+               C 78,90 85,120 90,160
+               C 94,190 98,220 100,260
+               C 101,290 96,320 94,360
+               C 92,400 97,420 99,460
+               C 100,500 96,560 97,632 Z"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#towerClip)">
+    <!-- base sunlit / shadow split -->
+    <path d="M 6,632
+             C 7,540 4,480 8,440
+             C 10,400 2,370 4,340
+             C 5,300 8,260 10,240
+             C 14,200 18,170 20,140
+             C 24,110 30,80 34,60
+             C 37,40 40,20 44,8
+             C 47,4 51,2 51,2
+             C 51,2 55,4 58,8
+             C 62,10 66,20 70,35
+             C 74,50 68,60 72,70
+             C 78,90 85,120 90,160
+             C 94,190 98,220 100,260
+             C 101,290 96,320 94,360
+             C 92,400 97,420 99,460
+             C 100,500 96,560 97,632 Z" fill="url(#faceGrad)"/>
+
+    <!-- floor-grouping bands, alternating tone -->
+    <rect x="0" y="600" width="101.12" height="32" fill="#000000" opacity="0.05"/>
+    <rect x="0" y="560" width="101.12" height="40" fill="#FFFFFF" opacity="0.06"/>
+    <rect x="0" y="510" width="101.12" height="50" fill="#000000" opacity="0.04"/>
+    <rect x="0" y="450" width="101.12" height="60" fill="#FFFFFF" opacity="0.05"/>
+    <rect x="0" y="390" width="101.12" height="60" fill="#000000" opacity="0.06"/>
+    <rect x="0" y="330" width="101.12" height="60" fill="#FFFFFF" opacity="0.05"/>
+    <rect x="0" y="270" width="101.12" height="60" fill="#000000" opacity="0.05"/>
+    <rect x="0" y="210" width="101.12" height="60" fill="#FFFFFF" opacity="0.06"/>
+    <rect x="0" y="150" width="101.12" height="60" fill="#000000" opacity="0.04"/>
+    <rect x="0" y="95" width="101.12" height="55" fill="#FFFFFF" opacity="0.06"/>
+    <rect x="0" y="45" width="101.12" height="50" fill="#000000" opacity="0.05"/>
+    <rect x="0" y="0" width="101.12" height="45" fill="#FFFFFF" opacity="0.07"/>
+
+    <!-- helical seam line following the twist -->
+    <path d="M 16,620 C 26,540 20,470 34,410 C 46,352 34,300 48,250 C 60,205 50,160 58,120 C 63,95 55,55 51,20"
+          fill="none" stroke="#7C93AA" stroke-width="1.1" opacity="0.35" stroke-linecap="round"/>
+
+    <!-- rim light stripe, left edge -->
+    <path d="M 6,632
+             C 7,540 4,480 8,440
+             C 10,400 2,370 4,340
+             C 5,300 8,260 10,240
+             C 14,200 18,170 20,140
+             C 24,110 30,80 34,60
+             C 37,40 40,20 44,8
+             L 45.6,8
+             C 41.6,20 38.6,40 35.6,60
+             C 31.6,80 25.6,110 21.6,140
+             C 19.6,170 15.6,200 11.6,240
+             C 9.6,260 6.6,300 5.6,340
+             C 3.6,370 11.6,400 9.6,440
+             C 5.6,480 8.6,540 7.6,632 Z" fill="#FFE2B0" opacity="0.9"/>
+
+    <!-- windows: dense at base, thinning toward the crown -->
+    <g fill="#FFD98A">
+      <rect x="10" y="610" width="2.4" height="3.2" rx="0.6" opacity="0.85"/>
+      <rect x="18" y="600" width="2" height="3" rx="0.6" opacity="0.7"/>
+      <rect x="26" y="618" width="2.6" height="3" rx="0.6" opacity="0.9"/>
+      <rect x="34" y="595" width="2.2" height="3.4" rx="0.6" opacity="0.6"/>
+      <rect x="42" y="610" width="2" height="3" rx="0.6" opacity="0.8"/>
+      <rect x="50" y="590" width="2.4" height="3" rx="0.6" opacity="0.65"/>
+      <rect x="58" y="615" width="2" height="3.2" rx="0.6" opacity="0.9"/>
+      <rect x="66" y="598" width="2.4" height="3" rx="0.6" opacity="0.75"/>
+      <rect x="74" y="608" width="2" height="3" rx="0.6" opacity="0.6"/>
+      <rect x="82" y="592" width="2.2" height="3.4" rx="0.6" opacity="0.85"/>
+      <rect x="88" y="618" width="2" height="3" rx="0.6" opacity="0.7"/>
+      <rect x="14" y="580" width="2.2" height="3" rx="0.6" opacity="0.6"/>
+      <rect x="22" y="565" width="2" height="3.2" rx="0.6" opacity="0.85"/>
+      <rect x="30" y="575" width="2.4" height="3" rx="0.6" opacity="0.7"/>
+      <rect x="38" y="560" width="2" height="3" rx="0.6" opacity="0.9"/>
+
+      <rect x="12" y="530" width="2.2" height="3" rx="0.6" opacity="0.75"/>
+      <rect x="20" y="520" width="2" height="3.2" rx="0.6" opacity="0.6"/>
+      <rect x="46" y="545" width="2.4" height="3" rx="0.6" opacity="0.85"/>
+      <rect x="55" y="525" width="2" height="3" rx="0.6" opacity="0.7"/>
+      <rect x="64" y="540" width="2.2" height="3.4" rx="0.6" opacity="0.9"/>
+      <rect x="73" y="515" width="2" height="3" rx="0.6" opacity="0.6"/>
+      <rect x="81" y="535" width="2.4" height="3" rx="0.6" opacity="0.8"/>
+      <rect x="90" y="518" width="2" height="3" rx="0.6" opacity="0.65"/>
+      <rect x="28" y="500" width="2.2" height="3.2" rx="0.6" opacity="0.75"/>
+      <rect x="60" y="495" width="2" height="3" rx="0.6" opacity="0.9"/>
+
+      <rect x="16" y="460" width="2" height="3" rx="0.6" opacity="0.7"/>
+      <rect x="24" y="445" width="2.2" height="3.2" rx="0.6" opacity="0.85"/>
+      <rect x="40" y="470" width="2" height="3" rx="0.6" opacity="0.6"/>
+      <rect x="52" y="450" width="2.4" height="3" rx="0.6" opacity="0.9"/>
+      <rect x="68" y="465" width="2" height="3" rx="0.6" opacity="0.7"/>
+      <rect x="78" y="440" width="2.2" height="3.4" rx="0.6" opacity="0.8"/>
+      <rect x="88" y="455" width="2" height="3" rx="0.6" opacity="0.6"/>
+      <rect x="34" y="420" width="2.2" height="3" rx="0.6" opacity="0.85"/>
+      <rect x="58" y="410" width="2" height="3.2" rx="0.6" opacity="0.7"/>
+      <rect x="72" y="415" width="2" height="3" rx="0.6" opacity="0.9"/>
+
+      <rect x="22" y="380" width="2" height="3" rx="0.6" opacity="0.75"/>
+      <rect x="38" y="365" width="2.2" height="3.2" rx="0.6" opacity="0.6"/>
+      <rect x="54" y="385" width="2" height="3" rx="0.6" opacity="0.85"/>
+      <rect x="70" y="370" width="2.2" height="3" rx="0.6" opacity="0.7"/>
+      <rect x="84" y="355" width="2" height="3.2" rx="0.6" opacity="0.9"/>
+      <rect x="30" y="335" width="2" height="3" rx="0.6" opacity="0.6"/>
+      <rect x="62" y="330" width="2" height="3" rx="0.6" opacity="0.8"/>
+      <rect x="78" y="320" width="2.2" height="3" rx="0.6" opacity="0.65"/>
+
+      <rect x="26" y="290" width="2" height="3" rx="0.6" opacity="0.7"/>
+      <rect x="46" y="275" width="2" height="3.2" rx="0.6" opacity="0.85"/>
+      <rect x="64" y="285" width="2" height="3" rx="0.6" opacity="0.6"/>
+      <rect x="80" y="260" width="2" height="3" rx="0.6" opacity="0.9"/>
+      <rect x="34" y="240" width="2" height="3" rx="0.6" opacity="0.75"/>
+      <rect x="56" y="230" width="1.8" height="2.8" rx="0.6" opacity="0.6"/>
+
+      <rect x="30" y="200" width="1.8" height="2.8" rx="0.6" opacity="0.8"/>
+      <rect x="50" y="190" width="1.8" height="2.8" rx="0.6" opacity="0.65"/>
+      <rect x="66" y="205" width="1.8" height="2.8" rx="0.6" opacity="0.85"/>
+      <rect x="42" y="165" width="1.6" height="2.6" rx="0.6" opacity="0.7"/>
+
+      <rect x="38" y="130" width="1.6" height="2.6" rx="0.6" opacity="0.75"/>
+      <rect x="54" y="120" width="1.6" height="2.6" rx="0.6" opacity="0.6"/>
+      <rect x="46" y="95" width="1.4" height="2.4" rx="0.6" opacity="0.85"/>
+      <rect x="58" y="85" width="1.4" height="2.4" rx="0.6" opacity="0.7"/>
+
+      <rect x="44" y="55" width="1.2" height="2" rx="0.5" opacity="0.7"/>
+      <rect x="52" y="42" width="1.2" height="2" rx="0.5" opacity="0.6"/>
+      <rect x="48" y="25" width="1" height="1.8" rx="0.5" opacity="0.8"/>
+    </g>
+  </g>
+</svg>

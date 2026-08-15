@@ -7,13 +7,25 @@ import { STOPS } from "./data/buildings";
 import { SKYLINE_BUILDINGS } from "./data/skylineBuildings";
 import type { Stop } from "./data/types";
 import { totalWorldDistance, type CameraFrame } from "./scene/camera";
-import { computeBuildingPaint } from "./scene/buildingPaint";
 import { groundColorAt } from "./scene/groundTint";
-import { shapeForStop, silhouettePath } from "./scene/silhouette";
-import { skyPhase, solarElevation } from "./scene/sun";
+import { phaseForStopIndex } from "./scene/journeyPhase";
 import { useCamera } from "./scene/useCamera";
 
 const { camera, trackWidthPx, positions, attachTrack } = useCamera(STOPS);
+
+// Hand-illustrated per-building art (src/assets/buildings/{stop.id}.svg),
+// bundled at build time so this stays a static site with zero runtime
+// requests — keyed by stop id since glob order isn't guaranteed to match STOPS.
+const buildingImages = import.meta.glob<string>("./assets/buildings/*.svg", {
+  query: "?url",
+  import: "default",
+  eager: true,
+});
+const buildingImageByStopId: Record<string, string> = {};
+for (const [path, url] of Object.entries(buildingImages)) {
+  const id = path.replace("./assets/buildings/", "").replace(".svg", "");
+  buildingImageByStopId[id] = url;
+}
 
 // Static, computed once — keys Skyline.vue's per-stop backdrop derivation to
 // the same stops/positions the camera itself uses.
@@ -35,17 +47,12 @@ function widthForStop(stop: Stop): number {
   return stop.heightM * (WIDTH_FRACTIONS[stop.id] ?? TOWER_WIDTH_FRACTION);
 }
 
-const buildings = STOPS.map((stop, i) => {
-  const widthM = widthForStop(stop);
-  const spec = shapeForStop(stop);
-  return {
-    stop,
-    worldX: positions[i],
-    widthM,
-    path: silhouettePath(widthM, stop.heightM, spec),
-    ...computeBuildingPaint(stop.id, widthM, stop.heightM, stop.floors, spec),
-  };
-});
+const buildings = STOPS.map((stop, i) => ({
+  stop,
+  worldX: positions[i],
+  widthM: widthForStop(stop),
+  imageUrl: buildingImageByStopId[stop.id],
+}));
 
 function buildingStyle(building: (typeof buildings)[number], frame: CameraFrame) {
   const widthPx = building.widthM * frame.scale;
@@ -64,9 +71,7 @@ const totalDistance = totalWorldDistance(positions);
 // the page asserts, just atmosphere (groundTint.ts).
 const progress = computed(() => (camera.value.x - positions[0]) / totalDistance);
 
-// Which stop the camera is closest to right now, in world space — the sky
-// shown is that stop's *actual* city, not a fixed one, so the twilight band
-// changes as the visitor travels from Canberra to Dubai.
+// Which stop the camera is closest to right now, in world space.
 function nearestStopIndex(worldX: number): number {
   let best = 0;
   let bestDistance = Infinity;
@@ -80,7 +85,8 @@ function nearestStopIndex(worldX: number): number {
   return best;
 }
 
-const focusedStop = computed(() => STOPS[nearestStopIndex(camera.value.x)]);
+const focusedIndex = computed(() => nearestStopIndex(camera.value.x));
+const focusedStop = computed(() => STOPS[focusedIndex.value]);
 const focusedCity = computed(() => CITIES[focusedStop.value.city] ?? CITIES.canberra);
 
 // The real names behind Skyline.vue's decorative (aria-hidden) backdrop,
@@ -113,35 +119,17 @@ watch(
   { immediate: true },
 );
 
-// Same real-astronomy call Sky.vue makes internally, reused here only to gate
-// the buildings' window-light layer — sampled once per focused-city change,
-// not per frame (harness rule 5).
-const phase = computed(() =>
-  skyPhase(solarElevation(new Date(), focusedCity.value.lat, focusedCity.value.lon)),
-);
+// Which of the five twilight bands this stop falls in, by its position along
+// the twenty-stop journey rather than any live clock (src/scene/journeyPhase.ts)
+// — day at the house, night at the Burj Khalifa. Drives both the sky (passed
+// down to <Sky>) and the buildings' window-light layer below.
+const phase = computed(() => phaseForStopIndex(focusedIndex.value, STOPS.length));
 </script>
 
 <template>
   <div class="journey" :data-phase="phase">
     <div class="stage" aria-hidden="true">
-      <svg class="defs-only" aria-hidden="true" focusable="false">
-        <defs>
-          <pattern id="building-windows" width="4" height="5" patternUnits="userSpaceOnUse">
-            <rect x="1" y="1" width="1.2" height="1.6" />
-            <rect x="2.6" y="1" width="1.2" height="1.6" />
-            <rect x="1" y="3" width="1.2" height="1.6" />
-            <rect x="2.6" y="3" width="1.2" height="1.6" />
-          </pattern>
-          <linearGradient id="building-warmcool" x1="0" x2="1" y1="0" y2="0" gradientUnits="objectBoundingBox">
-            <stop offset="0%" stop-color="#FBF3E4" />
-            <stop offset="30%" stop-color="#FBF3E4" />
-            <stop offset="40%" stop-color="#C6CFD8" />
-            <stop offset="50%" stop-color="#93A9BE" />
-            <stop offset="100%" stop-color="#93A9BE" />
-          </linearGradient>
-        </defs>
-      </svg>
-      <Sky :city-key="focusedStop.city" />
+      <Sky :phase="phase" />
       <Skyline :world-x="camera.x" :positions="positions" :stop-ids="stopIds" />
       <div class="ground" :style="{ background: groundColorAt(progress) }"></div>
       <div class="anchor">
@@ -153,50 +141,14 @@ const phase = computed(() =>
           :viewBox="`0 0 ${building.widthM} ${building.stop.heightM}`"
           preserveAspectRatio="xMidYMax meet"
         >
-          <defs>
-            <clipPath :id="`clip-${building.stop.id}`">
-              <path :d="building.path" />
-            </clipPath>
-          </defs>
-          <g :clip-path="`url(#clip-${building.stop.id})`">
-            <path :d="building.path" class="building-body" />
-            <rect
-              v-for="(band, i) in building.bands"
-              :key="`band-${i}`"
-              class="building-band"
-              x="0"
-              :y="band.yTop"
-              :width="building.widthM"
-              :height="band.yBottom - band.yTop"
-              :fill="band.brightness < 0 ? '#000000' : '#ffffff'"
-              :opacity="Math.abs(band.brightness)"
-            />
-            <rect
-              v-for="(win, i) in building.windows"
-              :key="`win-${i}`"
-              class="building-window"
-              :x="win.x"
-              :y="win.y"
-              :width="win.width"
-              :height="win.height"
-              :rx="win.rx"
-              :opacity="win.opacity"
-            />
-            <path :d="building.rimPath" class="building-rim" :stroke-width="building.rimStrokeWidth" />
-            <rect class="building-lights" x="0" y="0" :width="building.widthM" :height="building.stop.heightM" />
-          </g>
-          <g v-if="building.mast" class="building-mast-group">
-            <line
-              class="building-mast"
-              :x1="building.widthM / 2"
-              :y1="building.mast.yBottom"
-              :x2="building.widthM / 2"
-              y2="0"
-              :stroke-width="building.mast.strokeWidth"
-            />
-            <circle class="building-mast-halo" :cx="building.widthM / 2" cy="0" :r="building.mast.haloRadius" />
-            <circle class="building-mast-ball" :cx="building.widthM / 2" cy="0" :r="building.mast.ballRadius" />
-          </g>
+          <image
+            :href="building.imageUrl"
+            width="100%"
+            height="100%"
+            :x="0"
+            :y="0"
+            preserveAspectRatio="xMidYMax meet"
+          />
         </svg>
       </div>
       <p class="journey-title" aria-hidden="true">Skyline</p>

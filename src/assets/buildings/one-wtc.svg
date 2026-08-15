@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 86.608 541.3">
+  <defs>
+    <clipPath id="owtc-bodyClip">
+      <path d="M2.304,541.3 L7.27,403.2 Q7.304,402.2 7.35,401.2 L14.25,264.1 Q14.304,263.1 14.34,262.1 L18.66,125.5 Q18.704,124 20.204,124 L66.404,124 Q67.904,124 67.95,125.5 L72.27,262.1 Q72.304,263.1 72.35,264.1 L79.25,401.2 Q79.304,402.2 79.34,403.2 L84.304,541.3 Z"/>
+    </clipPath>
+    <linearGradient id="owtc-faceGrad" gradientUnits="userSpaceOnUse" x1="2.304" y1="0" x2="84.304" y2="0">
+      <stop offset="0%" stop-color="#FBF3E4"/>
+      <stop offset="38%" stop-color="#FBF3E4"/>
+      <stop offset="42%" stop-color="#C6CFD8"/>
+      <stop offset="46%" stop-color="#93A9BE"/>
+      <stop offset="100%" stop-color="#93A9BE"/>
+    </linearGradient>
+  </defs>
+
+  <!-- tower body base fill -->
+  <path d="M2.304,541.3 L7.27,403.2 Q7.304,402.2 7.35,401.2 L14.25,264.1 Q14.304,263.1 14.34,262.1 L18.66,125.5 Q18.704,124 20.204,124 L66.404,124 Q67.904,124 67.95,125.5 L72.27,262.1 Q72.304,263.1 72.35,264.1 L79.25,401.2 Q79.304,402.2 79.34,403.2 L84.304,541.3 Z" fill="url(#owtc-faceGrad)"/>
+
+  <!-- floor-grouping bands, alternating light/dark, clipped to body -->
+  <g clip-path="url(#owtc-bodyClip)">
+    <rect x="0" y="124" width="86.608" height="20" fill="#000000" opacity="0.06"/>
+    <rect x="0" y="144" width="86.608" height="30" fill="#FFFFFF" opacity="0.05"/>
+    <rect x="0" y="174" width="86.608" height="25" fill="#000000" opacity="0.04"/>
+    <rect x="0" y="199" width="86.608" height="35" fill="#FFFFFF" opacity="0.06"/>
+    <rect x="0" y="234" width="86.608" height="30" fill="#000000" opacity="0.05"/>
+    <rect x="0" y="264" width="86.608" height="40" fill="#FFFFFF" opacity="0.05"/>
+    <rect x="0" y="304" width="86.608" height="35" fill="#000000" opacity="0.06"/>
+    <rect x="0" y="339" width="86.608" height="30" fill="#FFFFFF" opacity="0.07"/>
+    <rect x="0" y="369" width="86.608" height="40" fill="#000000" opacity="0.05"/>
+    <rect x="0" y="409" width="86.608" height="35" fill="#FFFFFF" opacity="0.06"/>
+    <rect x="0" y="444" width="86.608" height="40" fill="#000000" opacity="0.07"/>
+    <rect x="0" y="484" width="86.608" height="30" fill="#FFFFFF" opacity="0.05"/>
+    <rect x="0" y="514" width="86.608" height="27.3" fill="#000000" opacity="0.06"/>
+  </g>
+
+  <!-- rim light along left edge of tower body -->
+  <path d="M2.304,541.3 L7.27,403.2 Q7.304,402.2 7.35,401.2 L14.25,264.1 Q14.304,263.1 14.34,262.1 L18.66,125.5 Q18.704,124 20.204,124" fill="none" stroke="#FFE2B0" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="butt" clip-path="url(#owtc-bodyClip)"/>
+
+  <!-- windows: irregular scatter, denser near base, thinning near top, clipped to body -->
+  <g fill="#FFD98A" clip-path="url(#owtc-bodyClip)">
+    <rect x="9" y="500" width="2" height="3.4" rx="0.5" opacity="0.85"/>
+    <rect x="15" y="516" width="1.8" height="3" rx="0.5" opacity="0.7"/>
+    <rect x="22" y="495" width="2.2" height="3.6" rx="0.5" opacity="0.9"/>
+    <rect x="29" y="508" width="1.6" height="2.8" rx="0.4" opacity="0.6"/>
+    <rect x="35" y="522" width="2" height="3.2" rx="0.5" opacity="1"/>
+    <rect x="41" y="498" width="1.9" height="3" rx="0.4" opacity="0.75"/>
+    <rect x="47" y="512" width="2.1" height="3.4" rx="0.5" opacity="0.65"/>
+    <rect x="53" y="490" width="1.7" height="2.9" rx="0.4" opacity="0.9"/>
+    <rect x="60" y="505" width="2" height="3.3" rx="0.5" opacity="0.55"/>
+    <rect x="66" y="519" width="1.8" height="3" rx="0.4" opacity="0.8"/>
+    <rect x="72" y="497" width="1.9" height="3.1" rx="0.4" opacity="0.7"/>
+    <rect x="12" y="470" width="2" height="3.2" rx="0.5" opacity="0.6"/>
+    <rect x="20" y="458" width="1.8" height="3" rx="0.4" opacity="0.95"/>
+    <rect x="28" y="475" width="2.1" height="3.3" rx="0.5" opacity="0.8"/>
+    <rect x="36" y="462" width="1.9" height="3" rx="0.4" opacity="0.5"/>
+    <rect x="44" y="480" width="2" height="3.2" rx="0.5" opacity="0.9"/>
+    <rect x="52" y="465" width="1.7" height="2.9" rx="0.4" opacity="0.65"/>
+    <rect x="58" y="472" width="2" height="3.1" rx="0.5" opacity="1"/>
+    <rect x="65" y="459" width="1.8" height="3" rx="0.4" opacity="0.7"/>
+    <rect x="71" y="477" width="1.9" height="3.2" rx="0.4" opacity="0.85"/>
+    <rect x="14" y="420" width="1.9" height="3" rx="0.4" opacity="0.75"/>
+    <rect x="21" y="435" width="1.7" height="2.8" rx="0.4" opacity="0.55"/>
+    <rect x="30" y="412" width="2" height="3.2" rx="0.5" opacity="0.9"/>
+    <rect x="38" y="428" width="1.8" height="3" rx="0.4" opacity="0.6"/>
+    <rect x="46" y="418" width="1.9" height="3.1" rx="0.4" opacity="1"/>
+    <rect x="55" y="432" width="1.7" height="2.9" rx="0.4" opacity="0.7"/>
+    <rect x="62" y="415" width="1.9" height="3" rx="0.4" opacity="0.8"/>
+    <rect x="69" y="430" width="1.8" height="3" rx="0.4" opacity="0.5"/>
+    <rect x="17" y="380" width="1.8" height="2.9" rx="0.4" opacity="0.7"/>
+    <rect x="26" y="392" width="1.7" height="2.8" rx="0.4" opacity="0.9"/>
+    <rect x="34" y="375" width="1.9" height="3" rx="0.4" opacity="0.6"/>
+    <rect x="43" y="388" width="1.8" height="2.9" rx="0.4" opacity="0.85"/>
+    <rect x="51" y="378" width="1.7" height="2.8" rx="0.4" opacity="0.55"/>
+    <rect x="59" y="390" width="1.8" height="3" rx="0.4" opacity="0.95"/>
+    <rect x="67" y="382" width="1.7" height="2.8" rx="0.4" opacity="0.65"/>
+    <rect x="20" y="340" width="1.7" height="2.8" rx="0.4" opacity="0.8"/>
+    <rect x="29" y="352" width="1.6" height="2.6" rx="0.4" opacity="0.6"/>
+    <rect x="38" y="335" width="1.7" height="2.8" rx="0.4" opacity="0.9"/>
+    <rect x="47" y="348" width="1.6" height="2.6" rx="0.4" opacity="0.5"/>
+    <rect x="55" y="338" width="1.7" height="2.7" rx="0.4" opacity="0.75"/>
+    <rect x="63" y="345" width="1.6" height="2.6" rx="0.4" opacity="0.85"/>
+    <rect x="24" y="300" width="1.6" height="2.6" rx="0.4" opacity="0.7"/>
+    <rect x="33" y="312" width="1.5" height="2.5" rx="0.4" opacity="0.55"/>
+    <rect x="42" y="298" width="1.6" height="2.6" rx="0.4" opacity="0.9"/>
+    <rect x="50" y="308" width="1.5" height="2.5" rx="0.4" opacity="0.65"/>
+    <rect x="58" y="302" width="1.6" height="2.6" rx="0.4" opacity="0.8"/>
+    <rect x="27" y="265" width="1.5" height="2.5" rx="0.4" opacity="0.75"/>
+    <rect x="36" y="255" width="1.4" height="2.4" rx="0.4" opacity="0.6"/>
+    <rect x="45" y="270" width="1.5" height="2.5" rx="0.4" opacity="0.9"/>
+    <rect x="53" y="258" width="1.4" height="2.4" rx="0.4" opacity="0.55"/>
+    <rect x="30" y="220" width="1.3" height="2.2" rx="0.3" opacity="0.7"/>
+    <rect x="40" y="210" width="1.3" height="2.2" rx="0.3" opacity="0.85"/>
+    <rect x="48" y="222" width="1.3" height="2.2" rx="0.3" opacity="0.6"/>
+    <rect x="34" y="175" width="1.2" height="2" rx="0.3" opacity="0.8"/>
+    <rect x="42" y="165" width="1.2" height="2" rx="0.3" opacity="0.65"/>
+    <rect x="50" y="178" width="1.2" height="2" rx="0.3" opacity="0.9"/>
+    <rect x="38" y="140" width="1.1" height="1.8" rx="0.3" opacity="0.7"/>
+    <rect x="47" y="135" width="1.1" height="1.8" rx="0.3" opacity="0.55"/>
+  </g>
+
+  <!-- bare mast rising from the flat parapet -->
+  <line x1="43.304" y1="124" x2="43.304" y2="14" stroke="#8C9AAB" stroke-width="1"/>
+
+  <!-- beacon halo and light at the mast tip -->
+  <circle cx="43.304" cy="12" r="6.5" fill="#FF8A6E" opacity="0.4"/>
+  <circle cx="43.304" cy="12" r="2.6" fill="#E8503A"/>
+</svg>

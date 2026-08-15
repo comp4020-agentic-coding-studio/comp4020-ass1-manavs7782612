@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 73.792 461.2">
+  <defs>
+    <clipPath id="clipS1">
+      <path d="M0,461.2 L0,181.4 Q0,180 1.4,180 L12.6,180 Q14,180 14,181.4 L14,461.2 Z"/>
+    </clipPath>
+    <clipPath id="clipS2">
+      <path d="M14,461.2 L14,111.4 Q14,110 15.4,110 L26.6,110 Q28,110 28,111.4 L28,461.2 Z"/>
+    </clipPath>
+    <clipPath id="clipS3">
+      <path d="M28,461.2 L28,41.4 Q28,40 29.4,40 L44.6,40 Q46,40 46,41.4 L46,461.2 Z"/>
+    </clipPath>
+    <clipPath id="clipS4">
+      <path d="M46,461.2 L46,111.4 Q46,110 47.4,110 L58.6,110 Q60,110 60,111.4 L60,461.2 Z"/>
+    </clipPath>
+    <clipPath id="clipS5">
+      <path d="M60,461.2 L60,181.4 Q60,180 61.4,180 L72.392,180 Q73.792,180 73.792,181.4 L73.792,461.2 Z"/>
+    </clipPath>
+    <clipPath id="clipAll">
+      <path d="M0,461.2 L0,181.4 Q0,180 1.4,180 L12.6,180 Q14,180 14,181.4 L14,461.2 Z"/>
+      <path d="M14,461.2 L14,111.4 Q14,110 15.4,110 L26.6,110 Q28,110 28,111.4 L28,461.2 Z"/>
+      <path d="M28,461.2 L28,41.4 Q28,40 29.4,40 L44.6,40 Q46,40 46,41.4 L46,461.2 Z"/>
+      <path d="M46,461.2 L46,111.4 Q46,110 47.4,110 L58.6,110 Q60,110 60,111.4 L60,461.2 Z"/>
+      <path d="M60,461.2 L60,181.4 Q60,180 61.4,180 L72.392,180 Q73.792,180 73.792,181.4 L73.792,461.2 Z"/>
+    </clipPath>
+  </defs>
+
+  <!-- ===== base light/shadow fills per shaft ===== -->
+  <g clip-path="url(#clipS1)">
+    <rect x="0" y="180" width="14" height="281.2" fill="#FBF3E4"/>
+  </g>
+  <g clip-path="url(#clipS2)">
+    <rect x="14" y="110" width="14" height="351.2" fill="#FBF3E4"/>
+  </g>
+  <g clip-path="url(#clipS3)">
+    <rect x="28" y="40" width="1.5" height="421.2" fill="#FBF3E4"/>
+    <rect x="29.5" y="40" width="3.7" height="421.2" fill="#C6CFD8"/>
+    <rect x="33.2" y="40" width="12.8" height="421.2" fill="#93A9BE"/>
+  </g>
+  <g clip-path="url(#clipS4)">
+    <rect x="46" y="110" width="14" height="351.2" fill="#93A9BE"/>
+  </g>
+  <g clip-path="url(#clipS5)">
+    <rect x="60" y="180" width="13.792" height="281.2" fill="#93A9BE"/>
+  </g>
+
+  <!-- ===== setback / floor-grouping bands (varied tone, same L/R split shows through) ===== -->
+  <g clip-path="url(#clipAll)">
+    <rect x="0" y="0" width="73.792" height="46" fill="#000000" opacity="0.05"/>
+    <rect x="0" y="46" width="73.792" height="40" fill="#FFFFFF" opacity="0.06"/>
+    <rect x="0" y="86" width="73.792" height="40" fill="#000000" opacity="0.04"/>
+    <rect x="0" y="126" width="73.792" height="45" fill="#FFFFFF" opacity="0.08"/>
+    <rect x="0" y="171" width="73.792" height="45" fill="#000000" opacity="0.03"/>
+    <rect x="0" y="216" width="73.792" height="45" fill="#FFFFFF" opacity="0.07"/>
+    <rect x="0" y="261" width="73.792" height="45" fill="#000000" opacity="0.05"/>
+    <rect x="0" y="306" width="73.792" height="45" fill="#FFFFFF" opacity="0.09"/>
+    <rect x="0" y="351" width="73.792" height="50" fill="#000000" opacity="0.04"/>
+    <rect x="0" y="401" width="73.792" height="60.2" fill="#FFFFFF" opacity="0.06"/>
+  </g>
+
+  <!-- ===== vertical seams between shafts ===== -->
+  <line x1="14" y1="180" x2="14" y2="461.2" stroke="#6B7A8C" stroke-width="0.4" opacity="0.35"/>
+  <line x1="28" y1="110" x2="28" y2="461.2" stroke="#6B7A8C" stroke-width="0.4" opacity="0.35"/>
+  <line x1="46" y1="110" x2="46" y2="461.2" stroke="#6B7A8C" stroke-width="0.4" opacity="0.35"/>
+  <line x1="60" y1="180" x2="60" y2="461.2" stroke="#6B7A8C" stroke-width="0.4" opacity="0.35"/>
+
+  <!-- ===== windows (irregular, denser toward base, thinning near top) ===== -->
+  <g clip-path="url(#clipAll)" fill="#FFD98A">
+    <!-- shaft 1 -->
+    <rect x="2" y="420" width="1.3" height="1.9" rx="0.3" opacity="0.9"/>
+    <rect x="5.2" y="440" width="1.2" height="1.8" rx="0.3" opacity="0.6"/>
+    <rect x="9" y="405" width="1.4" height="2" rx="0.3" opacity="1"/>
+    <rect x="3.1" y="380" width="1.2" height="1.8" rx="0.3" opacity="0.7"/>
+    <rect x="11" y="360" width="1.3" height="1.9" rx="0.3" opacity="0.55"/>
+    <rect x="6.3" y="330" width="1.2" height="1.8" rx="0.3" opacity="0.85"/>
+    <rect x="2.4" y="300" width="1.3" height="1.9" rx="0.3" opacity="0.65"/>
+    <rect x="9.4" y="250" width="1.2" height="1.8" rx="0.3" opacity="0.95"/>
+    <rect x="4.2" y="220" width="1.3" height="1.9" rx="0.3" opacity="0.75"/>
+    <rect x="12" y="200" width="1.2" height="1.7" rx="0.3" opacity="0.5"/>
+
+    <!-- shaft 2 -->
+    <rect x="16.2" y="440" width="1.3" height="1.9" rx="0.3" opacity="0.9"/>
+    <rect x="20" y="410" width="1.2" height="1.8" rx="0.3" opacity="0.6"/>
+    <rect x="24.3" y="430" width="1.4" height="2" rx="0.3" opacity="1"/>
+    <rect x="18.1" y="380" width="1.2" height="1.8" rx="0.3" opacity="0.7"/>
+    <rect x="26.2" y="360" width="1.3" height="1.9" rx="0.3" opacity="0.55"/>
+    <rect x="15.4" y="340" width="1.2" height="1.8" rx="0.3" opacity="0.85"/>
+    <rect x="22.2" y="300" width="1.3" height="1.9" rx="0.3" opacity="0.65"/>
+    <rect x="19.4" y="260" width="1.2" height="1.8" rx="0.3" opacity="0.95"/>
+    <rect x="25.1" y="230" width="1.3" height="1.9" rx="0.3" opacity="0.75"/>
+    <rect x="17.3" y="190" width="1.2" height="1.7" rx="0.3" opacity="0.5"/>
+    <rect x="21.2" y="150" width="1.1" height="1.6" rx="0.3" opacity="0.6"/>
+    <rect x="24.4" y="120" width="1.1" height="1.6" rx="0.3" opacity="0.55"/>
+
+    <!-- shaft 3 (center, tallest) -->
+    <rect x="30.2" y="450" width="1.3" height="1.9" rx="0.3" opacity="0.9"/>
+    <rect x="34" y="420" width="1.2" height="1.8" rx="0.3" opacity="0.6"/>
+    <rect x="38.3" y="440" width="1.4" height="2" rx="0.3" opacity="1"/>
+    <rect x="42.1" y="400" width="1.2" height="1.8" rx="0.3" opacity="0.7"/>
+    <rect x="31.3" y="370" width="1.3" height="1.9" rx="0.3" opacity="0.55"/>
+    <rect x="36.4" y="350" width="1.2" height="1.8" rx="0.3" opacity="0.85"/>
+    <rect x="44.2" y="330" width="1.3" height="1.9" rx="0.3" opacity="0.65"/>
+    <rect x="33.4" y="300" width="1.2" height="1.8" rx="0.3" opacity="0.95"/>
+    <rect x="40.1" y="270" width="1.3" height="1.9" rx="0.3" opacity="0.75"/>
+    <rect x="29.3" y="240" width="1.2" height="1.7" rx="0.3" opacity="0.5"/>
+    <rect x="37.2" y="210" width="1.1" height="1.6" rx="0.3" opacity="0.6"/>
+    <rect x="43.1" y="180" width="1.1" height="1.6" rx="0.3" opacity="0.55"/>
+    <rect x="32.2" y="150" width="1.1" height="1.5" rx="0.3" opacity="0.5"/>
+    <rect x="41.3" y="120" width="1" height="1.4" rx="0.3" opacity="0.45"/>
+    <rect x="35.2" y="95" width="0.9" height="1.3" rx="0.25" opacity="0.4"/>
+    <rect x="30.5" y="75" width="0.8" height="1.2" rx="0.25" opacity="0.35"/>
+
+    <!-- shaft 4 -->
+    <rect x="48.2" y="440" width="1.3" height="1.9" rx="0.3" opacity="0.9"/>
+    <rect x="52" y="410" width="1.2" height="1.8" rx="0.3" opacity="0.6"/>
+    <rect x="56.3" y="430" width="1.4" height="2" rx="0.3" opacity="1"/>
+    <rect x="50.1" y="380" width="1.2" height="1.8" rx="0.3" opacity="0.7"/>
+    <rect x="58.2" y="360" width="1.3" height="1.9" rx="0.3" opacity="0.55"/>
+    <rect x="47.4" y="340" width="1.2" height="1.8" rx="0.3" opacity="0.85"/>
+    <rect x="54.2" y="300" width="1.3" height="1.9" rx="0.3" opacity="0.65"/>
+    <rect x="59.1" y="260" width="1.2" height="1.8" rx="0.3" opacity="0.95"/>
+    <rect x="51.3" y="230" width="1.3" height="1.9" rx="0.3" opacity="0.75"/>
+    <rect x="57.2" y="190" width="1.2" height="1.7" rx="0.3" opacity="0.5"/>
+    <rect x="49.2" y="150" width="1.1" height="1.6" rx="0.3" opacity="0.55"/>
+
+    <!-- shaft 5 -->
+    <rect x="62.2" y="440" width="1.3" height="1.9" rx="0.3" opacity="0.9"/>
+    <rect x="66" y="410" width="1.2" height="1.8" rx="0.3" opacity="0.6"/>
+    <rect x="70.3" y="430" width="1.4" height="2" rx="0.3" opacity="1"/>
+    <rect x="64.1" y="380" width="1.2" height="1.8" rx="0.3" opacity="0.7"/>
+    <rect x="72" y="360" width="1.1" height="1.7" rx="0.3" opacity="0.55"/>
+    <rect x="61.4" y="330" width="1.2" height="1.8" rx="0.3" opacity="0.85"/>
+    <rect x="68.2" y="300" width="1.3" height="1.9" rx="0.3" opacity="0.65"/>
+    <rect x="63.4" y="250" width="1.2" height="1.8" rx="0.3" opacity="0.95"/>
+    <rect x="71.1" y="220" width="1.2" height="1.7" rx="0.3" opacity="0.75"/>
+    <rect x="65.3" y="200" width="1.2" height="1.7" rx="0.3" opacity="0.5"/>
+  </g>
+
+  <!-- ===== rim light along stepped left silhouette, full height ===== -->
+  <g fill="#FFE2B0">
+    <rect x="0" y="180" width="1.1" height="281.2" rx="0.5"/>
+    <rect x="14" y="110" width="1.1" height="70" rx="0.5"/>
+    <rect x="28" y="40" width="1.1" height="70" rx="0.5"/>
+  </g>
+
+  <!-- ===== spire mast on tallest/innermost shaft ===== -->
+  <circle cx="37" cy="6" r="3" fill="#FF8A6E" opacity="0.4"/>
+  <line x1="37" y1="40" x2="37" y2="8" stroke="#8C9AAB" stroke-width="0.8"/>
+  <circle cx="37" cy="6" r="0.8" fill="#E8503A"/>
+</svg>
