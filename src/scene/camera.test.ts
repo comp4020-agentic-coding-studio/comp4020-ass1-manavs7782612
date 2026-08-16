@@ -45,6 +45,32 @@ describe("calibrateScales", () => {
       expect(scales[i]).toBeLessThan(scales[i - 1]);
     }
   });
+
+  it("ignores width entirely when viewportWidthPx is omitted, even if widthM is present", () => {
+    const wide = [{ heightM: 4.4, widthM: 100 }];
+    const withWidth = calibrateScales(wide, 900, 0.78);
+    const withoutWidth = calibrateScales([{ heightM: 4.4 }], 900, 0.78);
+    expect(withWidth[0]).toBeCloseTo(withoutWidth[0]);
+  });
+
+  it("caps scale so a wide, short stop fits maxWidthFraction of a narrow viewport", () => {
+    // A squat, wide stop (like the Canberra house) on a phone-width viewport:
+    // height-only calibration would make it far wider than the screen.
+    const squat = [{ heightM: 4.4, widthM: 11.4 }];
+    const scales = calibrateScales(squat, 800, 0.78, 390, 0.76);
+    expect(squat[0].widthM! * scales[0]).toBeCloseTo(0.76 * 390);
+    // and that's tighter than the height-only scale would have been
+    const heightOnlyScale = (0.78 * 800) / squat[0].heightM;
+    expect(scales[0]).toBeLessThan(heightOnlyScale);
+  });
+
+  it("leaves scale at the height-based value when width isn't the tighter constraint", () => {
+    // A tall, narrow stop (like a supertall tower) is never width-limited.
+    const tower = [{ heightM: 828, widthM: 132.5 }];
+    const scales = calibrateScales(tower, 800, 0.78, 390, 0.76);
+    const heightOnlyScale = (0.78 * 800) / tower[0].heightM;
+    expect(scales[0]).toBeCloseTo(heightOnlyScale);
+  });
 });
 
 describe("cameraAtWorldX", () => {

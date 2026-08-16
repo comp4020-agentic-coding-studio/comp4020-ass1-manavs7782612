@@ -16,6 +16,9 @@ const FILL_FRACTION = 0.78;
 // calibrated to fill FILL_FRACTION of the space *above* the ground, not the
 // whole box.
 const GROUND_FRACTION = 0.2;
+// Must match .anchor's `left: 38vw` in journey.css — see calibrateScales'
+// maxWidthFraction doc for why 2x the nearer edge is the horizontal budget.
+const MAX_WIDTH_FRACTION = 0.76;
 
 export interface UseCameraResult {
   camera: Ref<CameraFrame>;
@@ -48,11 +51,15 @@ export function useCamera(stops: readonly WithHeight[], spacingFactor = 40): Use
     return containerHeight * (1 - GROUND_FRACTION);
   }
 
-  let scales = calibrateScales(stops, availableHeightPx(), FILL_FRACTION);
+  function availableWidthPx(): number {
+    return trackEl?.clientWidth ?? window.innerWidth;
+  }
+
+  let scales = calibrateScales(stops, availableHeightPx(), FILL_FRACTION, availableWidthPx(), MAX_WIDTH_FRACTION);
   const camera = shallowRef<CameraFrame>(cameraAtWorldX(positions[0], positions, scales));
 
   function recalibrate(): void {
-    scales = calibrateScales(stops, availableHeightPx(), FILL_FRACTION);
+    scales = calibrateScales(stops, availableHeightPx(), FILL_FRACTION, availableWidthPx(), MAX_WIDTH_FRACTION);
   }
 
   let settledFrames = 0;

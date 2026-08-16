@@ -12,6 +12,10 @@ export interface CameraFrame {
 
 export interface WithHeight {
   heightM: number;
+  /** In world metres — when given alongside `viewportWidthPx`, caps the
+   * calibrated scale so the stop fits the viewport horizontally too, not
+   * just vertically (see `calibrateScales`). */
+  widthM?: number;
 }
 
 /**
@@ -39,13 +43,29 @@ export function layoutStops(stops: readonly WithHeight[], spacingFactor: number)
  * The scale, in px per metre, at which stop i's own height fills
  * `fillFraction` of the viewport — i.e. the scale the camera should be at
  * when the journey is stopped exactly at stop i.
+ *
+ * When `viewportWidthPx` is given too, a stop whose `widthM` would otherwise
+ * overflow the viewport horizontally (the three squat, wide Canberra stops
+ * on a phone-width screen, where height-only calibration reads as "too
+ * zoomed in" because the sides run off both edges) is scaled down until it
+ * fits within `maxWidthFraction` of the viewport instead — matching how far
+ * a centred building can grow before it hits the nearer edge of `.anchor`
+ * (`left: 38vw` in journey.css; the nearer edge is 38vw away, so a centred
+ * building can be at most 2 * 38vw = 76vw wide before that edge clips it).
  */
 export function calibrateScales(
   stops: readonly WithHeight[],
   viewportHeightPx: number,
   fillFraction: number,
+  viewportWidthPx?: number,
+  maxWidthFraction = 0.76,
 ): number[] {
-  return stops.map((stop) => (fillFraction * viewportHeightPx) / stop.heightM);
+  return stops.map((stop) => {
+    const heightScale = (fillFraction * viewportHeightPx) / stop.heightM;
+    if (stop.widthM == null || viewportWidthPx == null) return heightScale;
+    const widthScale = (maxWidthFraction * viewportWidthPx) / stop.widthM;
+    return Math.min(heightScale, widthScale);
+  });
 }
 
 /**

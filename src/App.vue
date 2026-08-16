@@ -11,7 +11,29 @@ import { groundColorAt } from "./scene/groundTint";
 import { phaseForStopIndex } from "./scene/journeyPhase";
 import { useCamera } from "./scene/useCamera";
 
-const { camera, trackWidthPx, positions, attachTrack } = useCamera(STOPS);
+// Footprint width is a drawing decision, not a sourced claim (silhouette.ts) —
+// the three Canberra dwellings need family-specific ratios to read as a house,
+// a townhouse and a low block rather than three towers; every supertall
+// shares one ratio since none of their footprints are part of what the
+// journey is measuring.
+const WIDTH_FRACTIONS: Record<string, number> = {
+  house: 2.6,
+  townhouse: 1.4,
+  apartment: 0.9,
+};
+const TOWER_WIDTH_FRACTION = 0.16;
+
+function widthForStop(stop: Stop): number {
+  return stop.heightM * (WIDTH_FRACTIONS[stop.id] ?? TOWER_WIDTH_FRACTION);
+}
+
+// widthM rides along with each stop so useCamera can cap scale by width, not
+// just height — the squat, wide Canberra stops (house, townhouse, apartment)
+// would otherwise calibrate to a scale that fills the phone viewport's
+// height but runs the sides off both edges (see camera.ts's calibrateScales).
+const stopsWithWidth = STOPS.map((stop) => ({ ...stop, widthM: widthForStop(stop) }));
+
+const { camera, trackWidthPx, positions, attachTrack } = useCamera(stopsWithWidth);
 
 // Hand-illustrated per-building art (src/assets/buildings/{stop.id}.svg),
 // bundled at build time so this stays a static site with zero runtime
@@ -30,22 +52,6 @@ for (const [path, url] of Object.entries(buildingImages)) {
 // Static, computed once — keys Skyline.vue's per-stop backdrop derivation to
 // the same stops/positions the camera itself uses.
 const stopIds = STOPS.map((stop) => stop.id);
-
-// Footprint width is a drawing decision, not a sourced claim (silhouette.ts) —
-// the three Canberra dwellings need family-specific ratios to read as a house,
-// a townhouse and a low block rather than three towers; every supertall
-// shares one ratio since none of their footprints are part of what the
-// journey is measuring.
-const WIDTH_FRACTIONS: Record<string, number> = {
-  house: 2.6,
-  townhouse: 1.4,
-  apartment: 0.9,
-};
-const TOWER_WIDTH_FRACTION = 0.16;
-
-function widthForStop(stop: Stop): number {
-  return stop.heightM * (WIDTH_FRACTIONS[stop.id] ?? TOWER_WIDTH_FRACTION);
-}
 
 const buildings = STOPS.map((stop, i) => ({
   stop,
