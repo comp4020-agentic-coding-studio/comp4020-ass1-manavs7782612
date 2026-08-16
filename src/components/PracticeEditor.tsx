@@ -142,12 +142,42 @@ export default function PracticeEditor() {
       <div className="practice-controls">
         <fieldset className="practice-field">
           <legend>Table range</legend>
-          <div className="practice-field-row">
-            <button type="button" onClick={handleSelectRange}>
+          <div className="practice-field-row range-controls">
+            <button
+              type="button"
+              className="range-btn range-btn-pick"
+              aria-pressed={rangeMode !== "idle"}
+              onClick={handleSelectRange}
+            >
+              <svg className="range-btn-icon" viewBox="0 0 16 16" aria-hidden="true">
+                <rect
+                  x="1.75"
+                  y="1.75"
+                  width="12.5"
+                  height="12.5"
+                  rx="1.5"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.3"
+                  strokeDasharray="2.4 1.8"
+                />
+              </svg>
               Select table range
             </button>
-            <button type="button" onClick={handleWholeTable}>
-              Use whole table (A2:E7)
+            <button
+              type="button"
+              className="range-btn range-btn-whole"
+              aria-pressed={rangeRef === "A2:E7"}
+              onClick={handleWholeTable}
+            >
+              <svg className="range-btn-icon" viewBox="0 0 16 16" aria-hidden="true">
+                <rect x="1.75" y="1.75" width="12.5" height="12.5" rx="1.5" fill="none" stroke="currentColor" strokeWidth="1.3" />
+                <line x1="1.75" y1="6.75" x2="14.25" y2="6.75" stroke="currentColor" strokeWidth="1" />
+                <line x1="1.75" y1="10.5" x2="14.25" y2="10.5" stroke="currentColor" strokeWidth="1" />
+                <line x1="6.5" y1="1.75" x2="6.5" y2="14.25" stroke="currentColor" strokeWidth="1" />
+                <line x1="10.75" y1="1.75" x2="10.75" y2="14.25" stroke="currentColor" strokeWidth="1" />
+              </svg>
+              Use whole table <span className="range-ref">A2:E7</span>
             </button>
           </div>
           <p className="practice-hint">

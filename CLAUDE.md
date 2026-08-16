@@ -182,6 +182,23 @@ material and must visually and structurally defer to it. Concretely:
 - When the walkthrough and something else disagree on layout priority (space,
   scroll order, contrast), the walkthrough wins.
 
+## Table-range controls carry the Excel table-array color
+
+The practice editor's "Select table range" / "Use whole table (A2:E7)"
+buttons are the VLOOKUP `table-array` argument picker, so they're styled to
+read as spreadsheet controls rather than generic buttons: `.range-btn` in
+`styles.css` is the shared class, tinted with `--c-table` (the same purple
+already used for the `table-array` argument in the formula strip) instead of
+a new color. `.range-btn-pick` carries a dashed marquee icon that animates
+("marching ants") and lights up via `aria-pressed` while a pick is in
+progress; `.range-btn-whole` carries a gridded-table icon and renders the
+`A2:E7` reference as a `.range-ref` chip — a miniature Excel Name Box — and
+lights up the same way when the current range equals the whole table. Keep
+new range/cell-reference controls wired through these same tokens and
+`aria-pressed` states rather than one-off button markup, so the practice
+editor keeps reading as one spreadsheet rather than a form with buttons on
+it.
+
 ## This file is yours
 
 This CLAUDE.md is a starting point, not a fixed rulebook. As you learn what your
