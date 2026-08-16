@@ -3,21 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Skyline — a walk along the world's tallest buildings</title>
+    <meta name="color-scheme" content="light dark" />
+    <title>VLOOKUP Walkthrough — COMP4020 Prototype</title>
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <a class="skip-link" href="#main">Skip to the journey</a>
-    <header class="visually-hidden">
+    <header>
       <nav aria-label="Primary">
-        <a href="./">Skyline</a>
+        <a href="#walkthrough-root">Skip to walkthrough</a>
       </nav>
+      <h1>Learn VLOOKUP step by step</h1>
     </header>
-    <main id="main">
-      <h1 class="visually-hidden">Skyline: a walk along the world's tallest buildings</h1>
-      <div id="announcer" aria-live="polite" class="visually-hidden"></div>
-      <div id="journey"></div>
+    <main>
+      <div id="root"></div>
     </main>
-    <script type="module" src="./src/main.ts"></script>
+    <script type="module" src="./src/main.tsx"></script>
   </body>
 </html>

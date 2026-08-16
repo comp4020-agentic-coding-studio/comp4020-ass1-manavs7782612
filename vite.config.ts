@@ -1,6 +1,6 @@
 import { readdirSync } from "node:fs";
 import { join } from "node:path";
-import vue from "@vitejs/plugin-vue";
+import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 
 // Every .html file in the repo is a page and a build entry, so a multi-page
@@ -22,13 +22,8 @@ function htmlEntries(dir = "."): string[] {
 // GitHub Pages path (username.github.io/your-repo/) without further config.
 export default defineConfig({
   base: "./",
-  plugins: [vue()],
+  plugins: [react()],
   build: {
-    // Vite's modulepreload polyfill calls fetch() at runtime for browsers
-    // without native support — this prototype is marked live in Chrome only,
-    // which has had native support since 2021, and harness rule 4 bans
-    // runtime network calls outright. Off, so the bundle has none to grep for.
-    modulePreload: { polyfill: false },
     rollupOptions: {
       input: htmlEntries(),
     },

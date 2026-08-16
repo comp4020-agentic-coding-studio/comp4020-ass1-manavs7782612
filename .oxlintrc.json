@@ -1,4 +1,5 @@
 {
   "env": { "browser": true, "es2024": true },
+  "plugins": ["typescript", "unicorn", "oxc", "react", "jsx-a11y"],
   "ignorePatterns": ["dist", "node_modules"]
 }
